@@ -1,0 +1,41 @@
+package main
+
+import (
+"github.com/hundredlee/wechat_pusher/enum"
+"github.com/hundredlee/wechat_pusher/models"
+"github.com/hundredlee/wechat_pusher/task"
+"github.com/hundredlee/wechat_pusher/utils"
+"runtime"
+)
+
+func main() {
+
+	runtime.GOMAXPROCS(runtime.NumCPU())
+	var tasks []task.Task
+	tasks = make([]task.Task, 100)
+	mess := models.Message{
+		ToUser:     "oBv9cuLU5zyI27CtzI4VhV6Xabms",
+		TemplateId: "UXb6s5dahNC5Zt-xQIxbLJG1BdP8mP73LGLhNXl68J8",
+		Url:        "http://baidu.com",
+		Data: models.Data{
+			First:   models.Raw{"xxx", "#173177"},
+			Subject: models.Raw{"xxx", "#173177"},
+			Sender:  models.Raw{"xxx", "#173177"},
+			Remark:  models.Raw{"xxx", "#173177"}}}
+	task := task.TemplateTask{}
+	task.SetTask(mess)
+
+	for i := 0; i < 100; i++ {
+		tasks[i] = &task
+	}
+
+	utils.NewPush(&utils.Push{
+		Tasks:tasks,
+		TaskType:enum.TASK_TYPE_TEMPLATE,
+		Retries:4,
+		BufferNum:10,
+	}).Add("45 * * * * *")
+
+	utils.StartCron()
+
+}

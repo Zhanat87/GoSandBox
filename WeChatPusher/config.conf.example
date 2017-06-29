@@ -1,0 +1,15 @@
+[WeChat]
+APPID=
+SECRET=
+TOKEN=
+TEMPLATE=
+
+[Redis]
+POOL_SIZE=
+TIMEOUT=
+HOST=
+PASS=
+DB=
+
+[Log]
+LOG_PATH=

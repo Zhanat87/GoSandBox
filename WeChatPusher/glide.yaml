@@ -1,0 +1,11 @@
+package: WechatPuhser
+import:
+- package: github.com/robfig/cron
+  repo: git@github.com:robfig/cron.git
+  vcs: git
+- package: github.com/jinzhu/gorm
+  repo: git@github.com:jinzhu/gorm.git
+  vcs: git
+- package: github.com/buger/jsonparser
+- package: github.com/garyburd/redigo
+- package: github.com/urfave/cli
