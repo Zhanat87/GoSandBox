@@ -1,0 +1,11 @@
+{{ template "auth_header.html" . }}
+
+
+		<h2>Problems:</h2>
+		{{ range .Errors }}
+			<li> uh ..			{{.Text}}</li>
+		{{ end }}
+		
+
+
+{{ template "auth_footer.html" . }}

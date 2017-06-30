@@ -1,0 +1,27 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-5">
+			<h2>Login</h2>
+			<form>
+				<input type="email" name="" class="form-control" placeholder="Email" ng-model="loginEmail" />
+				<input type="password" name="" class="form-control" placeholder="Password" ng-model="loginPassword" />
+				<input type="submit" value="Login" class="btn" ng-click="login()" />
+			</form>
+		</div>
+		
+		<div class="col-lg-2">
+			<h3>- or -</h3>
+		</div>
+		
+		<div class="col-lg-5">
+			<h2>Register</h2>
+			<form>
+				<input type="email" name="" class="form-control" ng-model="registerEmail" placeholder="Email" ng-keyup="checkRegisteredEmail();" />
+				<input type="text" name="" class="form-control" ng-model="registerFirst" placeholder="First Name" />
+				<input type="text" name="" class="form-control" ng-model="registerLast" placeholder="Last Name" />				
+				<input type="password" name="" class="form-control" ng-model="registerPassword" placeholder="Password" ng-keyup="checkPassword();" />
+				<input type="submit" value="Register" class="btn"  ng-click="register()" />			
+			</form>
+		</div>
+	</div>
+</div>

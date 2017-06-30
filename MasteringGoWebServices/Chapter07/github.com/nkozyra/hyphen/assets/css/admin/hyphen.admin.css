@@ -1,0 +1,22 @@
+h1,h2,h3,h4 {
+	margin: 0px;
+	padding: 0px;
+}
+
+
+body.authentication {
+	background-color: #ccc;
+}
+
+.authentication .navbar {
+	background-color: #ccc;
+	border: none;
+}
+
+.authentication-form {
+	background-color: #bbb;
+	border: 1px solid #999;
+	box-shadow: rgba(30,30,30,.1) 0px 0px 10px;
+	padding: 40px;
+	border-radius: 2px;
+}
