@@ -14,6 +14,7 @@ func main() {
 
 	// Create channel of multiples of 3 and 5
 	// concurrently using goroutine
+
 	go func() {
 		for i := 1; i < MAX; i++ {
 			if (i%3) == 0 || (i%5) == 0 {
