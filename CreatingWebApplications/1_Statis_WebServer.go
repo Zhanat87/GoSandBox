@@ -1,29 +1,117 @@
 package main
 
-import "net/http"
+import (
+	//DEMO 1, 2, 3, 4, & 5
+	"net/http"
 
-func main() {  //{ Have to be following after main, otherwise it would add ; to the end to make compiler error
+	//DEMO 2 & 3
+	//"io/ioutil"
 
-	//Func can live by itself in Go
+	//DEMO 3
+	//"strings"
 
-	http.HandleFunc("/",func(w http.ResponseWriter,r *http.Request){
-		//The funcs in here is annoymouse function and , *http.Request is a point to a object
+	//DEMO 4
+	//"os"
+	//"bufio"
 
-		//main is limited to local package since, but Write is public for all
-	 w.Write([]byte("Hello World and u would like it"))
-		w.Write([]byte("What else do u want?"))
+)
 
-
-	})
+func main() {
+	//DEMO 1
+	/*
+	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+			w.Write([]byte("Hello World"))
+		})
 
 	http.ListenAndServe(":8000", nil)
+	*/
 
+	//DEMO 2, 3, 4
+	/*
+	http.Handle("/", new(MyHandler))
+	*/
+
+	//DEMO 5
+	http.ListenAndServe(":8000", http.FileServer(http.Dir("public")))
 }
 
-type MyHandler struct{
-	http.HandlerFunc
+//DEMO 2, 3, 4
+type MyHandler struct {
+	http.Handler
 }
 
-func (this *MyHandler) ServeHttp(w http.ResponseWriter, req *http.Request){
+//DEMO 2
+/*
+func (this *MyHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	path := "public" + req.URL.Path
+	data, err := ioutil.ReadFile(string(path))
+
+	if err == nil {
+		w.Write(data)
+	} else {
+		w.WriteHeader(404)
+		w.Write([]byte("404 - " + http.StatusText(404)))
+	}
 
 }
+*/
+
+//DEMO 3
+/*
+func (this *MyHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	path := "public" + req.URL.Path
+	data, err := ioutil.ReadFile(string(path))
+
+	if err == nil {
+		var contentType string
+		if strings.HasSuffix(path, ".css") {
+			contentType = "text/css"
+		} else if strings.HasSuffix(path, ".html") {
+			contentType = "text/html"
+		} else if strings.HasSuffix(path, ".js") {
+			contentType = "application/javascript"
+		} else if strings.HasSuffix(path, ".png") {
+			contentType = "image/png"
+		} else {
+			contentType = "text/plain"
+		}
+
+		w.Header().Add("Content Type", contentType)
+		w.Write(data)
+	} else {
+		w.WriteHeader(404)
+		w.Write([]byte("404 - " + http.StatusText(404)))
+	}
+}
+*/
+
+//DEMO 4
+/*
+func (this *MyHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	path := "public" + req.URL.Path
+	f, err := os.Open(path)
+
+	if err == nil {
+		var bufferedReader = bufio.NewReader(f)
+
+		var contentType string
+		if strings.HasSuffix(path, ".css") {
+			contentType = "text/css"
+		} else if strings.HasSuffix(path, ".html") {
+			contentType = "text/html"
+		} else if strings.HasSuffix(path, ".js") {
+			contentType = "application/javascript"
+		} else if strings.HasSuffix(path, ".png") {
+			contentType = "image/png"
+		} else {
+			contentType = "text/plain"
+		}
+
+		w.Header().Add("Content Type", contentType)
+		bufferedReader.WriteTo(w)
+	} else {
+		w.WriteHeader(404)
+		w.Write([]byte("404 - " + http.StatusText(404)))
+	}
+}
+*/

@@ -20,6 +20,7 @@ import (
 
 // A function definition. Main is special. It is the entry point for the
 // executable program. Love it or hate it, Go uses brace brackets.
+
 func main() { //I can do it by typing main
 	// Println outputs a line to stdout.
 	// Qualify it with the package name, fmt.
@@ -29,23 +30,37 @@ func main() { //I can do it by typing main
 
 	// Call another function within this package.
 	beyondHello()
+	
+	howDoyoudo()
+}
+func howDoyoudo() {
+	fmt.Println("This will print how do you do")
 }
 
 // Functions have parameters in parentheses.
 // If there are no parameters, empty parentheses are still required.
 func beyondHello() {
+
+	
 	var x int // Variable declaration. Variables must be declared before use.
 	x = 3     // Variable assignment.
 	// "Short" declarations use := to infer the type, declare, and assign.
 
 	y := 4
 
+	something, nothing := functionTakeTwo()
+
+	fmt.Println("Here is something and there is nothing", something , nothing)
 	myass, myhead := learnMultiple(x,y)
 
 	fmt.Println("myass",myass,"myhead",myhead)
 	sum, prod := learnMultiple(x, y)        // Function returns two values.
 	fmt.Println("sum:", sum, "prod:", prod) // Simple output.
 	learnTypes()                            // < y minutes, learn more!
+}
+func functionTakeTwo() (interface{}, interface{}) {
+
+	return 2*2, 4*4
 }
 
 /* <- multiline comment
