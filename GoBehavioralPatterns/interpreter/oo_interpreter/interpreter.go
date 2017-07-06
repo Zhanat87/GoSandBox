@@ -1,9 +1,20 @@
 package main
 
+/**
+ * Objective
+ *
+ * @param  url  an absolute URL giving the base location of the image
+ * @param  name the location of the image, relative to the url argument
+ * @return      the image at the specified URL
+ * @see         Image
+ * @7/6/2017 5:15 PM
+ */
 import (
 	"strconv"
 	"strings"
 )
+
+
 
 const (
 	SUM = "sum"
@@ -75,7 +86,7 @@ func (p *polishNotationStack) Pop() Interpreter {
 
 func main() {
 	stack := polishNotationStack{}
-	operators := strings.Split("3 4 sum 2 sub", " ")
+	operators := strings.Split("13 4 sum 2 sub", " ")
 
 	for _, operatorString := range operators {
 		if operatorString == SUM || operatorString == SUB {

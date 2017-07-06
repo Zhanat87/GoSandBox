@@ -1,8 +1,26 @@
 package main
 
+/**
+ * Put some information into a box
+ * Delegate some action somwhere else
+ *
+ * -- Similar to Strategy designer Pattern
+ * -- Strategy Pattern - Focus on changing Algorithms
+ * -- Command Patterns - Focus on the Invocation
+
+ * Another example would be you (i.e. Client) switching on (i.e. Command)
+ * the television (i.e. Receiver) using a remote control (Invoker).
+
+ * @param  url  an absolute URL giving the base location of the image
+ * @param  name the location of the image, relative to the url argument
+ * @return      the image at the specified URL
+ * @see         Image
+ * @7/6/2017 2:16 PM
+ */
+
 import (
 	"fmt"
-	"net/http"
+	//"net/http"
 )
 
 type Command interface {
@@ -51,6 +69,6 @@ func main() {
 	queue.AddCommand(CreateCommand("Fourth message"))
 	queue.AddCommand(CreateCommand("Fifth message"))
 
-	client := http.Client{}
-	client.Do(nil)
+	//client := http.Client{}
+	//client.Do(nil)
 }

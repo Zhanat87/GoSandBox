@@ -4,10 +4,16 @@ package chain
  * Dynamically chain the action at runtime
  * Pass a request through a chain of processors
  *
- * @param  url  an absolute URL giving the base location of the image
- * @param  name the location of the image, relative to the url argument
- * @return      the image at the specified URL
- * @see         Image
+ * --Make ChainLogger's signature return Next(String) error
+ * --Changing receivedMessage field to a pointer
+ *
+ * --Widely used to create Finte State machine(FSM)
+ * --Use interchangerabley with decorater patterns
+
+ * It helps building a chain of objects.
+ * Request enters from one end and keeps
+ * going from object to object till it finds the suitable handler.
+ *
  * @7/6/2017 12:32 PM
  */
 

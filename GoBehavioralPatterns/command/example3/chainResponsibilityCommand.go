@@ -1,5 +1,15 @@
 package main
 
+/* Chan of Responsibility of Command Patterns
+ * Pass a string message between links
+ *
+ * @param  url  an absolute URL giving the base location of the image
+ * @param  name the location of the image, relative to the url argument
+ * @return      the image at the specified URL
+ * @see         Image
+ * @7/6/2017 3:19 PM
+ */
+
 import (
 	"fmt"
 	"time"
