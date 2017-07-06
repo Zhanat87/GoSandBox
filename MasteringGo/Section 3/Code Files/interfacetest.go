@@ -4,7 +4,7 @@ import "fmt"
 
 type Node interface {
 	SetValue(v int)
-	GetValue() int	
+	GetValue() int
 }
 
 //type SLLNode
@@ -21,7 +21,7 @@ func (sNode *SLLNode) GetValue() int {
 	return sNode.value
 }
 
-func NewSLLNode()*SLLNode{
+func NewSLLNode() *SLLNode {
 	return new(SLLNode)
 }
 
@@ -39,7 +39,7 @@ func (sNode *PowerNode) GetValue() int {
 	return sNode.value
 }
 
-func NewPowerNode()*PowerNode{
+func NewPowerNode() *PowerNode {
 	return new(PowerNode)
 }
 
@@ -47,14 +47,13 @@ func main() {
 	var node Node
 	node = NewSLLNode()
 	node.SetValue(4)
-	fmt.Println("Node is of value ",node.GetValue())
-	
-	
+	fmt.Println("Node is of value ", node.GetValue())
+
 	node = NewPowerNode()
 	node.SetValue(5)
-	fmt.Println("Node is of value ",node.GetValue())
-	
-	if n,ok := node.(*PowerNode); ok {
+	fmt.Println("Node is of value ", node.GetValue())
+
+	if n, ok := node.(*PowerNode); ok {
 		fmt.Println(n.value)
 	}
 }

@@ -41,11 +41,11 @@ func (ms *mongoDataStore) FindMember(id int) (CrewMember, error) {
 	return cm, err
 }
 
-func (ms *mongoDataStore) AllMembers()(crew,error){
+func (ms *mongoDataStore) AllMembers() (crew, error) {
 	session := ms.Copy()
 	defer session.Close()
 	personnel := session.DB("Hydra").C("Personnel")
 	members := crew{}
 	err := personnel.Find(nil).All(&members)
-	return members,err
+	return members, err
 }

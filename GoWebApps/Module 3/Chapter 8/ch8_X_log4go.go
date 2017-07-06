@@ -1,11 +1,11 @@
 package main
 
-import
-(
+import (
 	logger "code.google.com/p/log4go"
 )
+
 func main() {
-	logMech := make(logger.Logger);
+	logMech := make(logger.Logger)
 	logMech.AddFilter("stdout", logger.DEBUG, logger.NewConsoleLogWriter())
 
 	flw := logger.NewFileLogWriter("log_manager.log", false)
@@ -16,8 +16,7 @@ func main() {
 	flw.SetRotateDaily(true)
 	logMech.AddFilter("file", logger.FINE, flw)
 
-
 	logMech.Trace("Received message: %s)", "All is well")
 	logMech.Info("Message received: ", "debug!")
-	logMech.Error("Oh no!","Something Broke")
+	logMech.Error("Oh no!", "Something Broke")
 }

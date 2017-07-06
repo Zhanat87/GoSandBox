@@ -1,24 +1,22 @@
 package main
 
-import
-(
+import (
 	"github.com/braintree/manners"
 	"net/http"
 )
 
 func SignalListener() {
-	
+
 }
 
 func main() {
-	
+
 	go func() {
 		SignalListener()
 	}()
 
-	  handler := MyHTTPHandler()
-	  server := manners.NewServer()
-	  server.ListenAndServe(":7000", handler)
-
+	handler := MyHTTPHandler()
+	server := manners.NewServer()
+	server.ListenAndServe(":7000", handler)
 
 }

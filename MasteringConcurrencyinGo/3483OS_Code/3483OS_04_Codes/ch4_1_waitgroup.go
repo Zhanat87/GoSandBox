@@ -1,18 +1,17 @@
 package main
 
-import(
-	"time"
+import (
 	"fmt"
 	"sync"
+	"time"
 )
-
-
 
 var currentTime time.Time
 var rwLock sync.RWMutex
+
 func updateTime() {
 	rwLock.RLock()
-	currentTime = time.Now();
+	currentTime = time.Now()
 	time.Sleep(5 * time.Second)
 	rwLock.RUnlock()
 }
@@ -21,7 +20,7 @@ func main() {
 
 	var wg sync.WaitGroup
 
-	currentTime = time.Now();
+	currentTime = time.Now()
 	timer := time.NewTicker(2 * time.Second)
 	writeTimer := time.NewTicker(10 * time.Second)
 	endTimer := make(chan bool)
@@ -31,13 +30,13 @@ func main() {
 
 		for {
 			select {
-				case <- timer.C:
-					fmt.Println(currentTime.String())
-				case <- writeTimer.C:
-					updateTime()
-				case <- endTimer:
-					timer.Stop()
-					return
+			case <-timer.C:
+				fmt.Println(currentTime.String())
+			case <-writeTimer.C:
+				updateTime()
+			case <-endTimer:
+				timer.Stop()
+				return
 			}
 
 		}

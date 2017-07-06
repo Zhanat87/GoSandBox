@@ -1,180 +1,180 @@
 package main
 
 import (
-  "net/http"
+	"net/http"
 
-  "database/sql"
-  _ "github.com/mattn/go-sqlite3"
+	"database/sql"
+	_ "github.com/mattn/go-sqlite3"
 
-  "encoding/json"
-  "net/url"
-  "io/ioutil"
-  "encoding/xml"
+	"encoding/json"
+	"encoding/xml"
+	"io/ioutil"
+	"net/url"
 
-  "github.com/codegangsta/negroni"
-  "github.com/yosssi/ace"
-  gmux "github.com/gorilla/mux"
+	"github.com/codegangsta/negroni"
+	gmux "github.com/gorilla/mux"
+	"github.com/yosssi/ace"
 )
 
 type Book struct {
-  PK int
-  Title string
-  Author string
-  Classification string
+	PK             int
+	Title          string
+	Author         string
+	Classification string
 }
 
 type Page struct {
-  Books []Book
+	Books []Book
 }
 
 type SearchResult struct {
-  Title string `xml:"title,attr"`
-  Author string `xml:"author,attr"`
-  Year string `xml:"hyr,attr"`
-  ID string `xml:"owi,attr"`
+	Title  string `xml:"title,attr"`
+	Author string `xml:"author,attr"`
+	Year   string `xml:"hyr,attr"`
+	ID     string `xml:"owi,attr"`
 }
 
 var db *sql.DB
 
 func verifyDatabase(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-  if err := db.Ping(); err != nil {
-    http.Error(w, err.Error(), http.StatusInternalServerError)
-    return
-  }
-  next(w, r)
+	if err := db.Ping(); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	next(w, r)
 }
 
 func main() {
-  db, _ = sql.Open("sqlite3", "dev.db")
+	db, _ = sql.Open("sqlite3", "dev.db")
 
-  mux := gmux.NewRouter()
+	mux := gmux.NewRouter()
 
-  mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-    template, err := ace.Load("templates/index", "", nil)
-    if err != nil {
-      http.Error(w, err.Error(), http.StatusInternalServerError)
-      return
-    }
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		template, err := ace.Load("templates/index", "", nil)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
-    p := Page{Books: []Book{}}
-    rows, _ := db.Query("select pk,title,author,classification from books")
-    for rows.Next() {
-      var b Book
-      rows.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
-      p.Books = append(p.Books, b)
-    }
+		p := Page{Books: []Book{}}
+		rows, _ := db.Query("select pk,title,author,classification from books")
+		for rows.Next() {
+			var b Book
+			rows.Scan(&b.PK, &b.Title, &b.Author, &b.Classification)
+			p.Books = append(p.Books, b)
+		}
 
-    if err = template.Execute(w, p); err != nil {
-      http.Error(w, err.Error(), http.StatusInternalServerError)
-    }
-  }).Methods("GET")
+		if err = template.Execute(w, p); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	}).Methods("GET")
 
-  mux.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
-    var results []SearchResult
-    var err error
+	mux.HandleFunc("/search", func(w http.ResponseWriter, r *http.Request) {
+		var results []SearchResult
+		var err error
 
-    if results, err = search(r.FormValue("search")); err != nil {
-      http.Error(w, err.Error(), http.StatusInternalServerError)
-      return
-    }
+		if results, err = search(r.FormValue("search")); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
-    encoder := json.NewEncoder(w)
-    if err := encoder.Encode(results); err != nil {
-      http.Error(w, err.Error(), http.StatusInternalServerError)
-    }
-  }).Methods("POST")
+		encoder := json.NewEncoder(w)
+		if err := encoder.Encode(results); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	}).Methods("POST")
 
-  mux.HandleFunc("/books", func (w http.ResponseWriter, r *http.Request) {
-    var book ClassifyBookResponse
-    var err error
+	mux.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
+		var book ClassifyBookResponse
+		var err error
 
-    if book, err = find(r.FormValue("id")); err != nil {
-      http.Error(w, err.Error(), http.StatusInternalServerError)
-      return
-    }
+		if book, err = find(r.FormValue("id")); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
-    result, err := db.Exec("insert into books (pk, title, author, id, classification) values (?, ?, ?, ?, ?)",
-                      nil, book.BookData.Title, book.BookData.Author, book.BookData.ID, book.Classification.MostPopular)
+		result, err := db.Exec("insert into books (pk, title, author, id, classification) values (?, ?, ?, ?, ?)",
+			nil, book.BookData.Title, book.BookData.Author, book.BookData.ID, book.Classification.MostPopular)
 
-    if err != nil {
-      http.Error(w, err.Error(), http.StatusInternalServerError)
-      return
-    }
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
-    pk, _ := result.LastInsertId()
-    b := Book{
-      PK: int(pk),
-      Title: book.BookData.Title,
-      Author: book.BookData.Author,
-      Classification: book.Classification.MostPopular,
-    }
-    if err := json.NewEncoder(w).Encode(b); err != nil {
-      http.Error(w, err.Error(), http.StatusInternalServerError)
-    }
-  }).Methods("PUT")
+		pk, _ := result.LastInsertId()
+		b := Book{
+			PK:             int(pk),
+			Title:          book.BookData.Title,
+			Author:         book.BookData.Author,
+			Classification: book.Classification.MostPopular,
+		}
+		if err := json.NewEncoder(w).Encode(b); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	}).Methods("PUT")
 
-  mux.HandleFunc("/books/{pk}", func (w http.ResponseWriter, r *http.Request) {
-    if _, err := db.Exec("delete from books where pk = ?", gmux.Vars(r)["pk"]); err != nil {
-      http.Error(w, err.Error(), http.StatusInternalServerError)
-      return
-    }
-    w.WriteHeader(http.StatusOK)
-  }).Methods("DELETE")
+	mux.HandleFunc("/books/{pk}", func(w http.ResponseWriter, r *http.Request) {
+		if _, err := db.Exec("delete from books where pk = ?", gmux.Vars(r)["pk"]); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		w.WriteHeader(http.StatusOK)
+	}).Methods("DELETE")
 
-  n := negroni.Classic()
-  n.Use(negroni.HandlerFunc(verifyDatabase))
-  n.UseHandler(mux)
-  n.Run(":8080")
+	n := negroni.Classic()
+	n.Use(negroni.HandlerFunc(verifyDatabase))
+	n.UseHandler(mux)
+	n.Run(":8080")
 }
 
 type ClassifySearchResponse struct {
-  Results []SearchResult `xml:"works>work"`
+	Results []SearchResult `xml:"works>work"`
 }
 
 type ClassifyBookResponse struct {
-  BookData struct {
-    Title string `xml:"title,attr"`
-    Author string `xml:"author,attr"`
-    ID string `xml:"owi,attr"`
-  } `xml:"work"`
-  Classification struct {
-    MostPopular string `xml:"sfa,attr"`
-  } `xml:"recommendations>ddc>mostPopular"`
+	BookData struct {
+		Title  string `xml:"title,attr"`
+		Author string `xml:"author,attr"`
+		ID     string `xml:"owi,attr"`
+	} `xml:"work"`
+	Classification struct {
+		MostPopular string `xml:"sfa,attr"`
+	} `xml:"recommendations>ddc>mostPopular"`
 }
 
 func find(id string) (ClassifyBookResponse, error) {
-  var c ClassifyBookResponse
-  body, err := classifyAPI("http://classify.oclc.org/classify2/Classify?summary=true&owi=" + url.QueryEscape(id))
+	var c ClassifyBookResponse
+	body, err := classifyAPI("http://classify.oclc.org/classify2/Classify?summary=true&owi=" + url.QueryEscape(id))
 
-  if err != nil {
-    return ClassifyBookResponse{}, err
-  }
+	if err != nil {
+		return ClassifyBookResponse{}, err
+	}
 
-  err = xml.Unmarshal(body, &c)
-  return c, err
+	err = xml.Unmarshal(body, &c)
+	return c, err
 }
 
 func search(query string) ([]SearchResult, error) {
-  var c ClassifySearchResponse
-  body, err := classifyAPI("http://classify.oclc.org/classify2/Classify?summary=true&title=" + url.QueryEscape(query))
+	var c ClassifySearchResponse
+	body, err := classifyAPI("http://classify.oclc.org/classify2/Classify?summary=true&title=" + url.QueryEscape(query))
 
-  if err != nil {
-    return []SearchResult{}, err
-  }
+	if err != nil {
+		return []SearchResult{}, err
+	}
 
-  err = xml.Unmarshal(body, &c)
-  return c.Results, err
+	err = xml.Unmarshal(body, &c)
+	return c.Results, err
 }
 
 func classifyAPI(url string) ([]byte, error) {
-  var resp *http.Response
-  var err error
+	var resp *http.Response
+	var err error
 
-  if resp, err = http.Get(url); err != nil {
-    return []byte{}, err
-  }
+	if resp, err = http.Get(url); err != nil {
+		return []byte{}, err
+	}
 
-  defer resp.Body.Close()
+	defer resp.Body.Close()
 
-  return ioutil.ReadAll(resp.Body)
+	return ioutil.ReadAll(resp.Body)
 }

@@ -1,9 +1,9 @@
-package main 
+package main
 
-import(
+import (
 	"fmt"
-	"sync"
 	"strings"
+	"sync"
 )
 
 var initialString string
@@ -17,7 +17,7 @@ var applicationStatus bool
 func getLetters(gQ chan string) {
 
 	for i := range initialBytes {
-		gQ <- string(initialBytes[i])	
+		gQ <- string(initialBytes[i])
 
 	}
 
@@ -31,18 +31,17 @@ func capitalizeLetters(gQ chan string, sQ chan string) {
 			break
 		}
 		select {
-			case letter := <- gQ:
-				capitalLetter := strings.ToUpper(letter)
-				finalString += capitalLetter
-				lettersProcessed++
+		case letter := <-gQ:
+			capitalLetter := strings.ToUpper(letter)
+			finalString += capitalLetter
+			lettersProcessed++
 		}
 	}
 }
 
-
 func main() {
 
-	applicationStatus = true;
+	applicationStatus = true
 
 	getQueue := make(chan string)
 	stackQueue := make(chan string)
@@ -54,9 +53,8 @@ func main() {
 
 	fmt.Println("Let's start capitalizing")
 
-
 	go getLetters(getQueue)
-	capitalizeLetters(getQueue,stackQueue)
+	capitalizeLetters(getQueue, stackQueue)
 
 	close(getQueue)
 	close(stackQueue)

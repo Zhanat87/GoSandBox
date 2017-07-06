@@ -5,9 +5,9 @@ import (
 )
 
 func main() {
-	starts := []int{10,40,70,100}
+	starts := []int{10, 40, 70, 100}
 
-	for _, j := range starts{
+	for _, j := range starts {
 		go func(s int) {
 			count(s, s+20, 10)
 		}(j)

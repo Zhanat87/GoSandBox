@@ -14,6 +14,8 @@ func main() {
 
 func fileBasedPipe() {
 	reader, writer, err := os.Pipe()
+
+
 	if err != nil {
 		fmt.Printf("Error: Can not create the named pipe: %s\n", err)
 	}

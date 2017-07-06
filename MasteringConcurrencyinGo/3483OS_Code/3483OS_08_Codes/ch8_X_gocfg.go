@@ -1,16 +1,15 @@
 package main
 
-import
-(
-	"fmt"
+import (
 	"code.google.com/p/gcfg"
+	"fmt"
 )
 
 type Configuration struct {
 	Revisions struct {
-		Count int
+		Count          int
 		Revisionsuffix string
-		Lockfiles bool
+		Lockfiles      bool
 	}
 	Logs struct {
 		Rotatelength int
@@ -24,7 +23,7 @@ func main() {
 	configFile := Configuration{}
 	err := gcfg.ReadFileInto(&configFile, "example.ini")
 	if err != nil {
-		fmt.Println("Error",err)
+		fmt.Println("Error", err)
 	}
-	fmt.Println("Rotation duration:",configFile.Logs.Rotatelength)
+	fmt.Println("Rotation duration:", configFile.Logs.Rotatelength)
 }

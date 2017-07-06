@@ -46,7 +46,7 @@ func instance() *redis.Pool {
 
 			/**
 			* maybe redis connect without or no need select database
-			*/
+			 */
 			if pass != nil {
 				if _, err := c.Do("AUTH", pass.(string)); err != nil {
 					c.Close()

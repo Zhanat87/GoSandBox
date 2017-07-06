@@ -11,6 +11,7 @@ import (
 	"strconv"
 	"sync"
 	"time"
+	"image/jpeg"
 )
 
 const (
@@ -158,6 +159,7 @@ func clientGo(id int) {
 		}
 		printLog("Sent request (written %d bytes): %d (Client[%d])\n", n, i32Req, id)
 	}
+
 	for j := 0; j < requestNumber; j++ {
 		strResp, err := read(conn)
 		if err != nil {

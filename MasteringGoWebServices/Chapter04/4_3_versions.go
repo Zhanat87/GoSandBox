@@ -1,8 +1,6 @@
 package main
 
-import
-(
-
+import (
 	"nathankozyra.com/api/v1"
 	"nathankozyra.com/api/v2"
 )
@@ -13,7 +11,6 @@ func main() {
 
 	v := 1
 
-
 	if v == 1 {
 		v1.API()
 		// do stuff with API v1
@@ -22,5 +19,4 @@ func main() {
 		// do stuff with API v2
 	}
 
-	
 }

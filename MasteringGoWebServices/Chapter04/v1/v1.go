@@ -1,11 +1,8 @@
 package v1
 
-import
-(
+import (
 	"nathankozyra.com/api/api"
 )
-
-
 
 func API() {
 	api.Init()

@@ -4,8 +4,8 @@ import (
 	"Hydra/hydracomms/hydramessages"
 	hydraproto "Hydra/hydracomms/hydramessages/protobuff"
 	"flag"
-	"strings"
 	"log"
+	"strings"
 )
 
 func main() {

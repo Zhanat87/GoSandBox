@@ -1,14 +1,14 @@
 package main
 
-import(
-"fmt"
+import (
+	"fmt"
 )
 
 var comm = make(chan bool)
 var done = make(chan bool)
 
 func producer() {
-	for i:=0; i< 10; i++ {
+	for i := 0; i < 10; i++ {
 		comm <- true
 	}
 	done <- true
@@ -16,13 +16,13 @@ func producer() {
 func consumer() {
 	for {
 		communication := <-comm
-		fmt.Println("Communication from producer received!",communication)
+		fmt.Println("Communication from producer received!", communication)
 	}
 }
 
 func main() {
 	go producer()
 	go consumer()
-	<- done
+	<-done
 	fmt.Println("All Done!")
 }

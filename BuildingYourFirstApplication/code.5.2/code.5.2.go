@@ -3,9 +3,9 @@ package main
 import "fmt"
 
 type Passport struct {
-	Photo []byte
-	Name string
-	Surname string
+	Photo       []byte
+	Name        string
+	Surname     string
 	DateOfBirth string
 }
 

@@ -1,17 +1,16 @@
 package passwords
 
-import
-(
+import (
 	"encoding/base64"
 
-	"math/rand"
 	"crypto/sha256"
+	"math/rand"
 	"time"
 )
 
 const randomLength = 16
 
-func GenerateSessionID(length int) (string) {
+func GenerateSessionID(length int) string {
 	var salt []byte
 	var asciiPad int64
 
@@ -21,8 +20,8 @@ func GenerateSessionID(length int) (string) {
 
 	asciiPad = 60
 
-	for i:= 0; i < length; i++ {
-		salt = append(salt, byte(rand.Int63n(62) + asciiPad) )
+	for i := 0; i < length; i++ {
+		salt = append(salt, byte(rand.Int63n(62)+asciiPad))
 	}
 
 	return string(salt)
@@ -38,13 +37,12 @@ func GenerateSalt(length int) string {
 
 	asciiPad = 32
 
-	for i:= 0; i < length; i++ {
-		salt = append(salt, byte(rand.Int63n(94) + asciiPad) )
+	for i := 0; i < length; i++ {
+		salt = append(salt, byte(rand.Int63n(94)+asciiPad))
 	}
 
 	return string(salt)
 }
-
 
 func GenerateHash(salt string, password string) string {
 
@@ -58,13 +56,12 @@ func GenerateHash(salt string, password string) string {
 }
 
 func ReturnPassword(password string) (string, string) {
-	
 
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	salt := GenerateSalt(0)
 
-	hash := GenerateHash(salt,password)
+	hash := GenerateHash(salt, password)
 
 	return salt, hash
 }

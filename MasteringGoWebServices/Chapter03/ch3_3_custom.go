@@ -1,14 +1,12 @@
 package main
 
-import
-(
-	"net/http"
-	"nathankozyra.com/httpex"
+import (
 	"fmt"
+	"nathankozyra.com/httpex"
+	"net/http"
 )
 
-
 func main() {
-	
+
 	fmt.Println("uh")
 }

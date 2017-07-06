@@ -1,11 +1,10 @@
 package main
 
-import
-(
+import (
+	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
 	"math/rand"
-	"crypto/sha256"
 	"time"
 )
 
@@ -16,13 +15,12 @@ func generateSalt() string {
 	var asciiPad int64
 	asciiPad = 32
 
-	for i:= 0; i < randomLength; i++ {
-		salt = append(salt, byte(rand.Int63n(94) + asciiPad) )
+	for i := 0; i < randomLength; i++ {
+		salt = append(salt, byte(rand.Int63n(94)+asciiPad))
 	}
 
 	return string(salt)
 }
-
 
 func generateHash(salt string, password string) string {
 	var hash string
@@ -35,13 +33,13 @@ func generateHash(salt string, password string) string {
 }
 
 func main() {
-	password := ""	
+	password := ""
 
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	salt := generateSalt()
-	
-	hash := generateHash(salt,password)
+
+	hash := generateHash(salt, password)
 
 	fmt.Println(hash)
 }

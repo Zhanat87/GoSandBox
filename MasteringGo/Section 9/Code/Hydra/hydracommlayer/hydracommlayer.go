@@ -1,5 +1,5 @@
 package hydracommlayer
 
-func Connect(protocol string){
+func Connect(protocol string) {
 
 }

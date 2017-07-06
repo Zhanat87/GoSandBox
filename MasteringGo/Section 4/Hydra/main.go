@@ -9,7 +9,7 @@ import (
 func main() {
 	logger := hlogger.GetInstance()
 	logger.Println("Starting Hydra web service")
-	
+
 	http.HandleFunc("/", sroot)
 	http.ListenAndServe(":8080", nil)
 }

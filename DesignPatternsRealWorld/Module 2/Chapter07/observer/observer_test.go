@@ -36,7 +36,7 @@ func TestSubject(t *testing.T) {
 		publisher.RemoveObserver(testObserver2)
 
 		if len(publisher.ObserversList) != 2 {
-			t.Errorf("The size of the observer list is not the " +
+			t.Errorf("The size of the observer list is not the "+
 				"expected. 3 != %d\n", len(publisher.ObserversList))
 		}
 
@@ -66,7 +66,7 @@ func TestSubject(t *testing.T) {
 			}
 
 			if printObserver.Message != "default" {
-				t.Errorf("The observer's Message field weren't" +
+				t.Errorf("The observer's Message field weren't"+
 					" empty: %s\n", printObserver.Message)
 			}
 		}
@@ -82,7 +82,7 @@ func TestSubject(t *testing.T) {
 			}
 
 			if printObserver.Message != message {
-				t.Errorf("Expected message on observer %d was " +
+				t.Errorf("Expected message on observer %d was "+
 					"not expected: '%s' != '%s'\n", printObserver.ID,
 					printObserver.Message, message)
 			}

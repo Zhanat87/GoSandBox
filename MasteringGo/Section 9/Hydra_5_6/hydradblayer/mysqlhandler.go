@@ -7,7 +7,7 @@ import (
 )
 
 type mySqlDataStore struct {
-	 *sql.DB
+	*sql.DB
 }
 
 func NewMySQLDataStore(conn string) (*mySqlDataStore, error) {
@@ -33,22 +33,22 @@ func (msql *mySqlDataStore) FindMember(id int) (CrewMember, error) {
 	return cm, err
 }
 
-func (msql *mySqlDataStore) AllMembers()(crew,error){
-	rows,err := msql.Query("Select * from Personnel;")
-	if err!= nil{
-		return nil,err
+func (msql *mySqlDataStore) AllMembers() (crew, error) {
+	rows, err := msql.Query("Select * from Personnel;")
+	if err != nil {
+		return nil, err
 	}
 	defer rows.Close()
 
 	members := crew{}
-	for rows.Next(){
+	for rows.Next() {
 		member := CrewMember{}
-		err = rows.Scan(&member.ID,&member.Name,&member.SecClearance, &member.Position)
-		if err == nil{
-			members = append(members,member)
+		err = rows.Scan(&member.ID, &member.Name, &member.SecClearance, &member.Position)
+		if err == nil {
+			members = append(members, member)
 		}
 	}
 
 	err = rows.Err()
-	return members,err
+	return members, err
 }

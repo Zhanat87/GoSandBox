@@ -1,9 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
 	"html/template"
-	"fmt"
 	"net/http"
 )
 
@@ -19,7 +19,7 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 
 func NameHandler(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	
+
 	t := template.New("hello")
 	g := Greeting{
 		params["hello"],

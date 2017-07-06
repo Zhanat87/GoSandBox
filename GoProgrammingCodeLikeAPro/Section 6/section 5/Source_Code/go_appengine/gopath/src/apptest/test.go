@@ -9,17 +9,15 @@ import (
 
 type Eddy_User struct {
 	Timestamp time.Time
-	User_Name   string
-	Email string
+	User_Name string
+	Email     string
 }
-
 
 func NewEddy_User() *Eddy_User {
 	return &Eddy_User{
 		Timestamp: time.Now(),
 	}
 }
-
 
 func init() {
 	http.HandleFunc("/", handler)
@@ -34,24 +32,22 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func userinfo(w http.ResponseWriter, req *http.Request) {
 
-	user := NewEddy_User( )
+	user := NewEddy_User()
 	user.User_Name = req.FormValue("User_Name")
 	user.Email = req.FormValue("Email")
 
 	if user.User_Name == "" {
 		user.User_Name = "Some dummy who forgot a name"
 	}
-	if user.Email  == "" {
-		user.Email  = "Some dummy who forgot a message."
+	if user.Email == "" {
+		user.Email = "Some dummy who forgot a message."
 	}
-
 
 	err := userinfoTemplate.Execute(w, user)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
-
 
 const userinfoForm = `
 <html>
@@ -64,7 +60,6 @@ const userinfoForm = `
   </body>
 </html>
 `
-
 
 var userinfoTemplate = template.Must(template.New("userinfo").Parse(tmpl))
 

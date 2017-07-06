@@ -1,9 +1,8 @@
 package main
 
-import(
-	_"runtime"
+import (
 	"fmt"
-
+	_ "runtime"
 )
 
 func showNumber(num int) {
@@ -12,8 +11,8 @@ func showNumber(num int) {
 
 func main() {
 	iterations := 10
-	
-	for i := 0; i<=iterations; i++ {
+
+	for i := 0; i <= iterations; i++ {
 
 		go showNumber(i)
 

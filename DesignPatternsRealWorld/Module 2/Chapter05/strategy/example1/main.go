@@ -30,7 +30,7 @@ func (t *ImageSquare) Draw() error {
 	width := 800
 	height := 600
 
-	bgColor := image.Uniform{color.RGBA{R: 70, G: 70, B: 70, A:0}}
+	bgColor := image.Uniform{color.RGBA{R: 70, G: 70, B: 70, A: 0}}
 	origin := image.Point{0, 0}
 	quality := &jpeg.Options{Quality: 75}
 

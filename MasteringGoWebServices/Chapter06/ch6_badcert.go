@@ -1,9 +1,8 @@
 package main
 
-import
-(
-	"net/http"
+import (
 	"fmt"
+	"net/http"
 )
 
 const (
@@ -11,7 +10,7 @@ const (
 )
 
 func main() {
-	
+
 	_, err := http.Get(URL)
 	if err != nil {
 

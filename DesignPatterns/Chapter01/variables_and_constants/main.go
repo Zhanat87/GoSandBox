@@ -13,6 +13,6 @@ func main() {
 	inferred := "Hello World!"
 
 	fmt.Println("Variable 'explicit' is of type:", reflect.TypeOf(explicit))
-    fmt.Println("Variable 'inferred' is of type:", reflect.TypeOf(inferred))
+	fmt.Println("Variable 'inferred' is of type:", reflect.TypeOf(inferred))
 
 }

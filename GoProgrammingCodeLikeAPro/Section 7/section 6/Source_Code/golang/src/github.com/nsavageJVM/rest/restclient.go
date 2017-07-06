@@ -1,29 +1,27 @@
 package rest
 
 import (
-	"log"
-	"golang.org/x/oauth2"
 	"fmt"
+	"golang.org/x/oauth2"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
-
 )
 
 //https://accounts.google.com/o/oauth2/auth?redirect_uri=https%3A%2F%2Fdevelopers.google.com%2Foauthplayground&response_type=code&client_id=407408718192.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fplus.login+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fplus.me+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&approval_prompt=force&access_type=offline
 
 // upper case first letter === public
-func TestScope(mssg string ) {
+func TestScope(mssg string) {
 
 	fmt.Println("TestScope :", mssg)
 }
 
 func GetGoogleSignInToken() {
 
-
 	url := "https://accounts.google.com/o/oauth2/auth"
 	fmt.Println("URL:>", url)
-	resp, err := http.Get( url)
+	resp, err := http.Get(url)
 	fmt.Println("response Status:", resp.Status)
 	fmt.Println("response Headers:", resp.Header)
 	body, _ := ioutil.ReadAll(resp.Body)
@@ -35,7 +33,7 @@ func GetGoogleSignInToken() {
 	defer resp.Body.Close()
 }
 
-func GetGoogleAPIToken () {
+func GetGoogleAPIToken() {
 
 	conf := &oauth2.Config{
 		ClientID:     "209261178694-hcv1i5shedrurqeu6fc1he5gg30boas4.apps.googleusercontent.com",
@@ -45,8 +43,8 @@ func GetGoogleAPIToken () {
 			"openid email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
 		},
 		Endpoint: oauth2.Endpoint{
-		AuthURL:  "https://accounts.google.com/o/oauth2/auth",
-		TokenURL: "https://accounts.google.com/o/oauth2/token",
+			AuthURL:  "https://accounts.google.com/o/oauth2/auth",
+			TokenURL: "https://accounts.google.com/o/oauth2/token",
 		},
 	}
 
@@ -60,12 +58,12 @@ func GetGoogleAPIToken () {
 	//
 	// Opts may include AccessTypeOnline or AccessTypeOffline, as well
 	// as ApprovalForce.
-//	authUrl := conf.AuthCodeURL("state")
-//
-//	u, _ := url.Parse(authUrl)
-//
-//	fmt.Printf("Visit the URL for the auth dialog: %v \n", u )
-//	// Handle the exchange code to initiate a transport.
+	//	authUrl := conf.AuthCodeURL("state")
+	//
+	//	u, _ := url.Parse(authUrl)
+	//
+	//	fmt.Printf("Visit the URL for the auth dialog: %v \n", u )
+	//	// Handle the exchange code to initiate a transport.
 	tok, err := conf.Exchange(oauth2.NoContext, "4/cBaIyVG3bsCfpramR-fid_BQLny659kUODyaPfdrh6Y")
 	if err != nil {
 		log.Fatal(err)
@@ -74,7 +72,6 @@ func GetGoogleAPIToken () {
 	client.Get("...")
 
 	fmt.Printf("\n got a token: %v", tok)
-
 
 }
 

@@ -1,4 +1,5 @@
 package main
+
 //
 ////GoCrawlerGo crawler can be as simple as those steps
 ////1.Send a GET request to the URL

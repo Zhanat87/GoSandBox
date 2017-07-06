@@ -2,13 +2,13 @@ package main
 
 import (
 	"flag"
+	"github.com/matryer/goblueprints/chapter1/trace"
 	"log"
 	"net/http"
 	"os"
 	"path/filepath"
 	"sync"
 	"text/template"
-	"github.com/matryer/goblueprints/chapter1/trace"
 )
 
 // templ represents a single template

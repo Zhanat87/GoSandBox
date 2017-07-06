@@ -1,10 +1,9 @@
 package main
 
-import
-(
+import (
 	"crypto/tls"
-	"net/http"
 	"fmt"
+	"net/http"
 )
 
 const (
@@ -13,8 +12,8 @@ const (
 
 func main() {
 
-	customTransport := &http.Transport{ TLSClientConfig: &tls.Config{InsecureSkipVerify: true} }
-	customClient := &http.Client{ Transport: customTransport }
+	customTransport := &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}
+	customClient := &http.Client{Transport: customTransport}
 	response, err := customClient.Get(URL)
 	if err != nil {
 		fmt.Println(err.Error())

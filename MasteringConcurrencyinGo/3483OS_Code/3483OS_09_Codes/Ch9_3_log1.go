@@ -1,12 +1,11 @@
 package main
 
-import 
-(
-	
+import (
 	"log"
 )
+
 func main() {
-	
+
 	log.Print("Sending it all to console!")
 
 }

@@ -1,7 +1,6 @@
 package main
 
-import
-(
+import (
 	"fmt"
 	"net/http"
 	"regexp"
@@ -9,22 +8,20 @@ import
 
 func main() {
 
-		http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
-			path := r.URL.Path
-			message := "You have triggered nothing"
+		path := r.URL.Path
+		message := "You have triggered nothing"
 
+		testMatch, _ := regexp.MatchString("/testing[0-9]{3}", path)
 
-			testMatch,_ := regexp.MatchString("/testing[0-9]{3}",path); 
+		if testMatch == true {
+			// helper functions
+			message = "You hit the test!"
+		}
 
-			if (testMatch == true) {
-				// helper functions
-				message = "You hit the test!"
-			}
+		fmt.Fprintln(w, message)
+	})
 
-
-			fmt.Fprintln(w,message)
-		})
-
-		http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8080", nil)
 }

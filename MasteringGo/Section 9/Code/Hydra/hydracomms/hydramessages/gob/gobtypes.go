@@ -12,4 +12,3 @@ type Ship struct {
 	CaptainName string
 	Crew        []CrewMember
 }
-

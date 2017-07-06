@@ -1,7 +1,7 @@
 package models
 
 import (
-  "golang.org/x/crypto/bcrypt"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
@@ -10,13 +10,13 @@ type User struct {
 }
 
 func NewUser(un, pw string) *User {
-  secret, _ := bcrypt.GenerateFromPassword([]byte(pw), bcrypt.DefaultCost)
-  return &User{
-    Username: un,
-    Secret: secret,
-  }
+	secret, _ := bcrypt.GenerateFromPassword([]byte(pw), bcrypt.DefaultCost)
+	return &User{
+		Username: un,
+		Secret:   secret,
+	}
 }
 
 func (u *User) Authenticate(pw string) bool {
-  return bcrypt.CompareHashAndPassword(u.Secret, []byte(pw)) == nil
+	return bcrypt.CompareHashAndPassword(u.Secret, []byte(pw)) == nil
 }

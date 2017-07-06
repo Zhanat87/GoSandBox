@@ -1,11 +1,9 @@
 package main
 
-import
-(
+import (
 	"github.com/garyburd/redigo/redis"
 )
 
 func main() {
-	
 
 }

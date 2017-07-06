@@ -1,7 +1,6 @@
 package main
 
 import (
-
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 
@@ -37,16 +36,12 @@ func LogPrepare() {
 func main() {
 	LogPrepare()
 
-
-
-
 	db, err := sql.Open("mysql", "root@/dev.hyphen.io")
 	if err != nil {
 
 	}
 
 	d, _ := db.Prepare("SELECT * FROM content_stories")
-	
 
 	Database.Println(d)
 	Authentication.Println("Logging an auth attempt item")

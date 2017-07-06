@@ -1,8 +1,6 @@
 package main
 
-
-import
-(
+import (
 	"fmt"
 	"github.com/bradfitz/gomemcache/memcache"
 )
@@ -15,5 +13,5 @@ func main() {
 		fmt.Println(err.Error())
 	}
 	fmt.Println(it)
-	fmt.Println( "hello!" )
+	fmt.Println("hello!")
 }

@@ -16,10 +16,11 @@ func (sNode *SLLNode) GetValue() int {
 	return sNode.value
 }
 
-func NewSLLNode()*SLLNode{
+func NewSLLNode() *SLLNode {
 	return new(SLLNode)
 }
- //type linked list
+
+//type linked list
 type SingleLinkedList struct {
 	head *SLLNode
 	tail *SLLNode
@@ -43,7 +44,7 @@ func (list *SingleLinkedList) Add(v int) {
 
 func (list *SingleLinkedList) String() string {
 	s := ""
-	for n := list.head; n != nil ; n = n.next {
+	for n := list.head; n != nil; n = n.next {
 		s += fmt.Sprintf(" {%d} ", n.GetValue())
 	}
 	return s

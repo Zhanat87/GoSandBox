@@ -1,64 +1,62 @@
 package hlog
 
 import (
+	"fmt"
+	"github.com/hundredlee/wechat_pusher/config"
 	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
-	"time"
 	"strconv"
-	"github.com/hundredlee/wechat_pusher/config"
-	"fmt"
+	"time"
 )
-
 
 type fileLog struct {
 	hlog
 	logger *log.Logger
 }
 
-
 var (
 	hFileLog *fileLog
-	conf *config.Config = config.Instance()
+	conf     *config.Config = config.Instance()
 )
 
-func LogInstance () *fileLog {
-	if hFileLog == nil{
-		InitLogFile(true,"")
+func LogInstance() *fileLog {
+	if hFileLog == nil {
+		InitLogFile(true, "")
 	}
 	return hFileLog
 }
 
-func InitLogFile(isOpen bool,fp string) {
+func InitLogFile(isOpen bool, fp string) {
 	if !isOpen {
 		hFileLog = &fileLog{}
 		hFileLog.logger = nil
 		hFileLog.isOpen = isOpen
-		return 
+		return
 	}
 
 	if fp == "" {
-		wd:= os.Getenv("GOPATH")
-		if wd =="" {
-			file,_ := exec.LookPath(os.Args[0])
+		wd := os.Getenv("GOPATH")
+		if wd == "" {
+			file, _ := exec.LookPath(os.Args[0])
 			path := filepath.Dir(file)
 			wd = path
 		}
 		if wd == "" {
-			 panic("GOPATH is not setted in env or can not get exe path.")
+			panic("GOPATH is not setted in env or can not get exe path.")
 		}
-		fp = fmt.Sprintf("%s/%s/",wd,conf.ConMap["Log.LOG_PATH"])
+		fp = fmt.Sprintf("%s/%s/", wd, conf.ConMap["Log.LOG_PATH"])
 	}
-	hFileLog = NewFileLog(isOpen,fp)
+	hFileLog = NewFileLog(isOpen, fp)
 }
 
-func NewFileLog(isOpen bool,logPath string) *fileLog {
-	year,month,day := time.Now().Date()
+func NewFileLog(isOpen bool, logPath string) *fileLog {
+	year, month, day := time.Now().Date()
 	logName := "log." + strconv.Itoa(year) + "-" + strconv.Itoa(int(month)) + "-" + strconv.Itoa(day)
-	err := os.MkdirAll(logPath,0755)
+	err := os.MkdirAll(logPath, 0755)
 	if err != nil {
-		 panic("logPath error :"+logPath+"\n")
+		panic("logPath error :" + logPath + "\n")
 	}
 	f, err := os.OpenFile(logPath+"/"+logName, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
@@ -70,7 +68,6 @@ func NewFileLog(isOpen bool,logPath string) *fileLog {
 
 	return fFileLog
 }
-
 
 func (this *fileLog) log(level string, str string) {
 	if !this.isOpen {
@@ -87,4 +84,3 @@ func (this *fileLog) LogError(str string) {
 func (this *fileLog) LogInfo(str string) {
 	this.log("[INFO]", str)
 }
-

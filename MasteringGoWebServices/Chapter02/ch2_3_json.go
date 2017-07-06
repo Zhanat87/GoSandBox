@@ -1,16 +1,15 @@
 package main
 
-import
-(
+import (
 	"encoding/xml"
-	"net/http"
 	"fmt"
+	"net/http"
 )
 
 type User struct {
-	Name string `xml:"name"`
+	Name  string `xml:"name"`
 	Email string `xml:"email"`
-	ID int `xml:"id"`
+	ID    int    `xml:"id"`
 }
 
 func userRouter(w http.ResponseWriter, r *http.Request) {
@@ -19,15 +18,14 @@ func userRouter(w http.ResponseWriter, r *http.Request) {
 	ourUser.Email = "bill.smith@example.com"
 	ourUser.ID = 100
 
-	output,_ := xml.Marshal(&ourUser)
+	output, _ := xml.Marshal(&ourUser)
 	fmt.Fprintln(w, string(output))
 }
 
 func main() {
-	
 
 	fmt.Println("Starting JSON server")
 	http.HandleFunc("/user", userRouter)
-	http.ListenAndServe(":8080",nil)
+	http.ListenAndServe(":8080", nil)
 
 }

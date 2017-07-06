@@ -1,14 +1,11 @@
 package cache
 
-
-import
-(
+import (
 	"log"
 	"time"
 )
 
-const
-(
+const (
 	CacheMethod = "memory"
 )
 
@@ -17,9 +14,9 @@ func Init() {
 }
 
 func SetCache() {
-	
+
 }
 
 func GetCache() {
-	
+
 }

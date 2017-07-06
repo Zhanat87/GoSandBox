@@ -204,10 +204,10 @@ func searchKeys(data []byte, keys ...string) int {
 					if curIdx == aIdx {
 						valueFound = value
 						valueOffset = offset
-                                                if dataType == String {
+						if dataType == String {
 							valueOffset = valueOffset - 2
-							valueFound = data[i + valueOffset:i + valueOffset + len(value) + 2]
-                                                }
+							valueFound = data[i+valueOffset : i+valueOffset+len(value)+2]
+						}
 					}
 					curIdx += 1
 				})
@@ -553,10 +553,10 @@ func Set(data []byte, setValue []byte, keys ...string) (value []byte, err error)
 		depthOffset := endOffset
 		if depth != 0 {
 			// if subpath is a non-empty object, add to it
-			if data[startOffset] == '{' && data[startOffset+1+nextToken(data[startOffset+1:])]!='}' {
+			if data[startOffset] == '{' && data[startOffset+1+nextToken(data[startOffset+1:])] != '}' {
 				depthOffset--
 				startOffset = depthOffset
-			// otherwise, over-write it with a new object
+				// otherwise, over-write it with a new object
 			} else {
 				comma = false
 				object = true

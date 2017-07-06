@@ -8,9 +8,8 @@ type Message string
 
 func (msg Message) Say() { fmt.Print(msg) }
 
-func (message Message) iSay() {fmt.Print(message)}
+func (message Message) iSay() { fmt.Print(message) }
 func main() {
-
 
 	msg := Message("Mastering Go in ")
 	msg.iSay()

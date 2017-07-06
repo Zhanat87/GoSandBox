@@ -1,10 +1,10 @@
 package main
 
-import 
-(
+import (
 	"fmt"
 	"time"
 )
+
 func thinkAboutKeys(bC chan int) {
 	i := 0
 	max := 10

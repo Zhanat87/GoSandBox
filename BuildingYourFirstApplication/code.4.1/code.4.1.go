@@ -6,7 +6,7 @@ import (
 )
 
 func solveSquareEquation(a float64, b float64, c float64) (int, float64, float64) {
-	D := b * b - 4 * a * c
+	D := b*b - 4*a*c
 
 	switch {
 	case D > 0:
@@ -18,8 +18,8 @@ func solveSquareEquation(a float64, b float64, c float64) (int, float64, float64
 	}
 }
 
-func printNumbers(objects... int) {
-	for _, num := range(objects) {
+func printNumbers(objects ...int) {
+	for _, num := range objects {
 		fmt.Println(num)
 	}
 }

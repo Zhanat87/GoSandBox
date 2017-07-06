@@ -1,18 +1,15 @@
 package main
 
-import
-(
+import (
 	"errors"
-	"reflect"
 	"log"
+	"reflect"
 )
 
 type Alpha struct {
-
 }
 
 type Numeric struct {
-
 }
 
 func (a Alpha) Add(x string, y string) (string, error) {
@@ -40,15 +37,15 @@ func (n Numeric) Add(x int, y int) (int, error) {
 func main() {
 	n1 := Numeric{}
 	a1 := Alpha{}
-	z,err := n1.Add(5,2)	
+	z, err := n1.Add(5, 2)
 	if err != nil {
-		log.Println("Error",err)
+		log.Println("Error", err)
 	}
 	log.Println(z)
 
-	y,err := a1.Add("super","lative")
+	y, err := a1.Add("super", "lative")
 	if err != nil {
-		log.Println("Error",err)
+		log.Println("Error", err)
 	}
 	log.Println(y)
 }

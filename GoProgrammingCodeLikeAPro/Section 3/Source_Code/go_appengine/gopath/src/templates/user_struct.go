@@ -6,8 +6,8 @@ import (
 )
 
 type User struct {
-	User_Name   string
-	Emails []string
+	User_Name string
+	Emails    []string
 }
 
 const tmpl = `{{$name := .User_Name}}
@@ -18,8 +18,8 @@ const tmpl = `{{$name := .User_Name}}
 
 func main() {
 	user := User{
-		User_Name:   "Eddy",
-		Emails: []string{"eddy@eduonix.com", "eddy@eddysmail.com"},
+		User_Name: "Eddy",
+		Emails:    []string{"eddy@eduonix.com", "eddy@eddysmail.com"},
 	}
 
 	t := template.New("User template")

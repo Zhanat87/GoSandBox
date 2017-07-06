@@ -1,7 +1,6 @@
 package fmttest
 
-import
-(
+import (
 	"fmt"
 )
 
@@ -11,8 +10,8 @@ func (f format) Test() {
 	fmt.Println("YES")
 }
 
-const(
-	Bold format = 10
+const (
+	Bold   format = 10
 	Italic format = 20
 	Strong format = 30
 )

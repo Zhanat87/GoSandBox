@@ -13,7 +13,7 @@ __asm__( "" );
 import "C"
 
 func main() {
-    
-    C.asm()
+
+	C.asm()
 
 }

@@ -6,8 +6,8 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
-	"net/http"
 	"log"
+	"net/http"
 )
 
 var database *sql.DB
@@ -17,7 +17,7 @@ type Users struct {
 }
 
 type User struct {
-	ID int "json:id"
+	ID    int    "json:id"
 	Name  string "json:username"
 	Email string "json:email"
 	First string "json:first"
@@ -51,22 +51,22 @@ func UsersRetrieve(w http.ResponseWriter, r *http.Request) {
 
 	next := start + limit
 
-	w.Header().Set("Pragma","no-cache")
-	w.Header().Set("Link","<http://localhost:8080/api/users?start="+string(next)+"; rel=\"next\"")
+	w.Header().Set("Pragma", "no-cache")
+	w.Header().Set("Link", "<http://localhost:8080/api/users?start="+string(next)+"; rel=\"next\"")
 
-	rows,_ := database.Query("select * from users LIMIT 10")
-	Response 	:= Users{}
+	rows, _ := database.Query("select * from users LIMIT 10")
+	Response := Users{}
 
 	for rows.Next() {
 
 		user := User{}
-		rows.Scan(&user.ID, &user.Name, &user.First, &user.Last, &user.Email )
+		rows.Scan(&user.ID, &user.Name, &user.First, &user.Last, &user.Email)
 
 		Response.Users = append(Response.Users, user)
 	}
-	
-	output,_ := json.Marshal(Response)
-	fmt.Fprintln(w,string(output))
+
+	output, _ := json.Marshal(Response)
+	fmt.Fprintln(w, string(output))
 }
 func main() {
 

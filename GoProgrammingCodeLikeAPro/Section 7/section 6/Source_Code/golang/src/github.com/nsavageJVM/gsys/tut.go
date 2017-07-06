@@ -26,7 +26,7 @@ func main() {
 	var evt *vlc.EventManager
 	var err error
 
-	// Load the VLC engine. 
+	// Load the VLC engine.
 	if inst, err = vlc.New(os.Args); err != nil {
 		fmt.Fprintf(os.Stderr, "[e] New(): %v", err)
 		return

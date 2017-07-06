@@ -1,8 +1,8 @@
 package main
 
 import (
-	"strings"
 	"strconv"
+	"strings"
 )
 
 const (
@@ -42,19 +42,18 @@ func operatorFactory(o string, left, right Interpreter) Interpreter {
 	switch o {
 	case SUM:
 		return &operationSum{
-			Left: left,
+			Left:  left,
 			Right: right,
 		}
 	case SUB:
 		return &operationSubtract{
-			Left: left,
+			Left:  left,
 			Right: right,
 		}
 	}
 
 	return nil
 }
-
 
 type polishNotationStack []Interpreter
 

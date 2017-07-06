@@ -1,28 +1,28 @@
 package main
 
 import (
-  "fmt"
-  "net/http"
-  "html/template"
+	"fmt"
+	"html/template"
+	"net/http"
 )
 
 type Page struct {
-  Name string
+	Name string
 }
 
 func main() {
-  templates := template.Must(template.ParseFiles("templates/index.html"))
+	templates := template.Must(template.ParseFiles("templates/index.html"))
 
-  http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-    p := Page{Name: "Gopher"}
-    if name := r.FormValue("name"); name != "" {
-      p.Name = name
-    }
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		p := Page{Name: "Gopher"}
+		if name := r.FormValue("name"); name != "" {
+			p.Name = name
+		}
 
-    if err := templates.ExecuteTemplate(w, "index.html", p); err != nil {
-      http.Error(w, err.Error(), http.StatusInternalServerError)
-    }
-  })
+		if err := templates.ExecuteTemplate(w, "index.html", p); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+		}
+	})
 
-  fmt.Println(http.ListenAndServe(":8080", nil))
+	fmt.Println(http.ListenAndServe(":8080", nil))
 }

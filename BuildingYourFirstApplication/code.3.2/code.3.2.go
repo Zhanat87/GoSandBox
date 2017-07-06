@@ -19,24 +19,24 @@ func main() {
 	case x < 18:
 		fmt.Println("Kid")
 		fallthrough
-	default:		
+	default:
 		fmt.Println("Sorry, you are too young")
 	}
 
 	/*
-	var direction string
-	fmt.Scanf("%s", &direction)
+		var direction string
+		fmt.Scanf("%s", &direction)
 
-	switch direction = strings.ToLower(direction); direction {
-	case "n":
-		fmt.Println("Go north!")
-	case "s":
-		fmt.Println("Go south!")
-	case "w":
-		fmt.Println("Go west!")
-	case "e":
-		fmt.Println("Go east!")
-	default:
-	}
+		switch direction = strings.ToLower(direction); direction {
+		case "n":
+			fmt.Println("Go north!")
+		case "s":
+			fmt.Println("Go south!")
+		case "w":
+			fmt.Println("Go west!")
+		case "e":
+			fmt.Println("Go east!")
+		default:
+		}
 	*/
 }

@@ -1,14 +1,14 @@
 package main
 
 import (
-	"net/http"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 )
 
 func main() {
 	response, err := http.Get("http://api.theysaidso.com/qod")
-	if err!= nil {
+	if err != nil {
 		fmt.Println(err)
 		return
 	}

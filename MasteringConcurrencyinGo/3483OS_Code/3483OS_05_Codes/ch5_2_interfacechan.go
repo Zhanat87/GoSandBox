@@ -1,9 +1,8 @@
 package main
 
-import
-(
-	"strconv"
+import (
 	"fmt"
+	"strconv"
 )
 
 type Messenger interface {
@@ -20,21 +19,21 @@ func (m Message) Relay() string {
 
 func alertMessages(v chan Messenger, i int) {
 	m := new(Message)
-	m.status = "Done with " + strconv.FormatInt(int64(i),10)
+	m.status = "Done with " + strconv.FormatInt(int64(i), 10)
 	v <- m
 }
 
-func main () {
-	
+func main() {
+
 	msg := make(chan Messenger)
 
-	for i:= 0; i < 10; i++ {
-		go alertMessages(msg,i)
+	for i := 0; i < 10; i++ {
+		go alertMessages(msg, i)
 	}
 
 	select {
-		case message := <-msg:
-			fmt.Println (message.Relay())
+	case message := <-msg:
+		fmt.Println(message.Relay())
 	}
-	<- msg
+	<-msg
 }

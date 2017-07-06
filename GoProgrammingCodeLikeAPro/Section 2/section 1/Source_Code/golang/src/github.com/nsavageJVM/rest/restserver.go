@@ -1,17 +1,16 @@
 package rest
 
-
 import (
-	"net/http"
-	"net/url"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
+	"net/url"
 )
 
 const (
-	GET    = "GET"
-	POST   = "POST"
+	GET  = "GET"
+	POST = "POST"
 )
 
 // GetSupported is the interface that provides the Get
@@ -26,9 +25,8 @@ type PostSupported interface {
 	Post(url.Values, http.Header) (int, interface{}, http.Header)
 }
 
-
 // here we are binding this function to a struct 'API'
-func  (api *API)  BootStrapServer(port int) error {
+func (api *API) BootStrapServer(port int) error {
 
 	if !api.muxInitialized {
 		return errors.New("You must add at least one resource to this API.")
@@ -42,12 +40,10 @@ func NewAPI() *API {
 	return &API{}
 }
 
-
 type API struct {
-	mux     *http.ServeMux
+	mux            *http.ServeMux
 	muxInitialized bool
 }
-
 
 // AddResource adds a new resource to an API. The API will route
 // requests that match one of the given paths to the matching HTTP
@@ -78,11 +74,13 @@ func (api *API) requestHandler(resource interface{}) http.HandlerFunc {
 		switch request.Method {
 		case GET:
 			if resource, ok := resource.(GetSupported); ok {
-				handler = resource.Get  }
+				handler = resource.Get
+			}
 
 		case POST:
 			if resource, ok := resource.(PostSupported); ok {
-				handler = resource.Post    }
+				handler = resource.Post
+			}
 		}
 
 		if handler == nil {
@@ -103,8 +101,5 @@ func (api *API) requestHandler(resource interface{}) http.HandlerFunc {
 		rw.WriteHeader(code)
 		rw.Write(content)
 
-
 	}
 }
-
-

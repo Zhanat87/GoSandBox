@@ -1,7 +1,6 @@
 package main
 
-import
-(
+import (
 	"fmt"
 	"github.com/nkozyra/api/ratelimit"
 )

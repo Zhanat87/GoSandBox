@@ -1,18 +1,16 @@
 package main
 
-import
-(
-"fmt"
-"net"
-"os"
-"bufio"
-"strings"
-
+import (
+	"bufio"
+	"fmt"
+	"net"
+	"os"
+	"strings"
 )
 
 type Message struct {
 	message string
-	user string
+	user    string
 }
 
 var recvBuffer [140]byte
@@ -20,41 +18,40 @@ var recvBuffer [140]byte
 func listen(conn net.Conn) {
 	for {
 
-	    messBuff := make([]byte,1024)
-			n, err := conn.Read(messBuff)
-			if err != nil {
+		messBuff := make([]byte, 1024)
+		n, err := conn.Read(messBuff)
+		if err != nil {
 
-			}
-			message := string(messBuff[:n])
-			message = message[0:]
+		}
+		message := string(messBuff[:n])
+		message = message[0:]
 
-			fmt.Println(strings.TrimSpace(message))
-			fmt.Print("> ")
+		fmt.Println(strings.TrimSpace(message))
+		fmt.Print("> ")
 	}
 
 }
 
 func talk(conn net.Conn, mS chan Message) {
 
-      for {
-			command := bufio.NewReader(os.Stdin)
-				fmt.Print("> ")      	
-                line, err := command.ReadString('\n')
-                
-                line = strings.TrimRight(line, " \t\r\n")
-				_, err = conn.Write([]byte(line))                       
-                if err != nil {
-                        conn.Close()
-                        break
+	for {
+		command := bufio.NewReader(os.Stdin)
+		fmt.Print("> ")
+		line, err := command.ReadString('\n')
 
-                }
-			doNothing(command)	
-        }	
+		line = strings.TrimRight(line, " \t\r\n")
+		_, err = conn.Write([]byte(line))
+		if err != nil {
+			conn.Close()
+			break
+
+		}
+		doNothing(command)
+	}
 
 }
 
 func doNothing(bf *bufio.Reader) {
-
 
 }
 func main() {
@@ -63,25 +60,25 @@ func main() {
 
 	userName := os.Args[1]
 
-	fmt.Println("Connecting to host as",userName)
+	fmt.Println("Connecting to host as", userName)
 
 	clientClosed := make(chan bool)
 
-	conn, err := net.Dial("tcp","127.0.0.1:9000")
+	conn, err := net.Dial("tcp", "127.0.0.1:9000")
 	if err != nil {
 		fmt.Println("Could not connect to server!")
 	}
-	conn.Write([]byte(userName)) 
-	introBuff := make([]byte,1024)	  
+	conn.Write([]byte(userName))
+	introBuff := make([]byte, 1024)
 	n, err := conn.Read(introBuff)
 	if err != nil {
 
 	}
-	message := string(introBuff[:n])	
+	message := string(introBuff[:n])
 	fmt.Println(message)
 
-	go talk(conn,messageServer)
+	go talk(conn, messageServer)
 	go listen(conn)
 
-	<- clientClosed
+	<-clientClosed
 }

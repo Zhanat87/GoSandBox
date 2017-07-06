@@ -5,7 +5,7 @@ import (
 	"image/color"
 )
 
-type Invert struct {}
+type Invert struct{}
 
 func (r Invert) invert(c color.Color) color.Color {
 	R, G, B, A := c.RGBA()

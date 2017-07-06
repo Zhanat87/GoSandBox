@@ -10,7 +10,7 @@ func main() {
 		if i == 10 {
 			break
 		}
-		if i % 2 != 0 {
+		if i%2 != 0 {
 			x += i
 		} else {
 			continue

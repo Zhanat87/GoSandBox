@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
-	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3"
 	"os"
+	"strings"
 	"time"
-    "strings"
-
 )
 
 // https://www.socketloop.com/tutorials/golang-setting-up-configure-aws-credentials-with-official-aws-sdk-go
@@ -41,9 +40,6 @@ type Bucket struct {
 	Error        error
 	ErrObjects   []ErrObject
 }
-
-
-
 
 func main() {
 
@@ -91,7 +87,6 @@ func main() {
 
 	fmt.Println("CreateBucket result : ", uploadResult.GoString())
 
-
 	// https://github.com/aws/aws-sdk-go/blob/master/service/s3/examples_test.go#L860-L879
 
 	var params2 *s3.ListBucketsInput
@@ -101,4 +96,3 @@ func main() {
 	fmt.Println(resp2)
 
 }
-

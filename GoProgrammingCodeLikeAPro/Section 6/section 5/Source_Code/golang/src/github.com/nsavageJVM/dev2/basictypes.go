@@ -1,19 +1,18 @@
 package main
 
 import (
-	"net/url"
-	"net/http"
 	"github.com/nsavageJVM/rest"
+	"net/http"
+	"net/url"
 )
 
-type Item struct { }
+type Item struct{}
 
 func (item Item) Get(values url.Values, headers http.Header) (int, interface{}, http.Header) {
 	items := []string{"item1", "item2"}
 	data := map[string][]string{"items": items}
 	return 200, data, http.Header{"Content-type": {"application/json"}}
 }
-
 
 func main() {
 

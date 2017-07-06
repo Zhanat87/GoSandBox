@@ -46,7 +46,6 @@ type Pasta struct {
 	Product
 }
 
-
 type Fridge struct {
 	Product
 }
@@ -110,7 +109,6 @@ func main() {
 	}
 
 	fmt.Printf("Total: %f\n", priceVisitor.Sum)
-
 
 	nameVisitor := &NamePrinter{}
 

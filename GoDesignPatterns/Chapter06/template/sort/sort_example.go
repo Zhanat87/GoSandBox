@@ -1,8 +1,8 @@
 package main
 
 import (
-	"sort"
 	"fmt"
+	"sort"
 )
 
 type MyList []int
@@ -16,11 +16,11 @@ func (m MyList) Swap(i, j int) {
 }
 
 func (m MyList) Less(i, j int) bool {
-return m[i] < m[j]
+	return m[i] < m[j]
 }
 
 func main() {
-	var myList MyList = []int{6,4,2,8,1}
+	var myList MyList = []int{6, 4, 2, 8, 1}
 
 	fmt.Println(myList)
 	sort.Sort(myList)

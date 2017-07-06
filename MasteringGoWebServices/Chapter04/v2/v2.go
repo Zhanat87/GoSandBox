@@ -1,10 +1,8 @@
 package v2
 
-import
-(
+import (
 	"nathankozyra.com/api/api"
 )
-
 
 func API() {
 

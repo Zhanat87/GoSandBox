@@ -1,10 +1,10 @@
 package main
 
-import(
+import (
 	"fmt"
 	"runtime"
 	"strings"
-	)
+)
 
 var loremIpsum string
 var finalIpsum string
@@ -13,12 +13,12 @@ func deliverToFinal(letter string, finalIpsum *string) {
 	*finalIpsum += letter
 }
 
-func capitalize(current *int, length int, letters[] byte, finalIpsum *string) {
+func capitalize(current *int, length int, letters []byte, finalIpsum *string) {
 	for *current < length {
-		thisLetter := strings.ToUpper( string(letters[*current]) )
+		thisLetter := strings.ToUpper(string(letters[*current]))
 
 		deliverToFinal(thisLetter, finalIpsum)
-		*current++		
+		*current++
 	}
 }
 
@@ -32,10 +32,10 @@ func main() {
 	letters := []byte(loremIpsum)
 	length := len(letters)
 
-	go capitalize(index,length,letters,&finalIpsum)
-	go capitalize(index,length,letters,&finalIpsum)
+	go capitalize(index, length, letters, &finalIpsum)
+	go capitalize(index, length, letters, &finalIpsum)
 
-	fmt.Println(length," characters.")
+	fmt.Println(length, " characters.")
 	fmt.Println(loremIpsum)
 	fmt.Println(*index)
 	fmt.Println(finalIpsum)

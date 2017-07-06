@@ -2,15 +2,13 @@ package main
 
 import (
 	"fmt"
-	"time"
 	"io/ioutil"
+	"time"
 )
 
-
-
 type Job struct {
-	i int
-	max int
+	i    int
+	max  int
 	text string
 }
 
@@ -24,7 +22,7 @@ func outputText(j *Job) {
 		j.i++
 	}
 	err := ioutil.WriteFile(fileName, []byte(fileContents), 0644)
-	if (err != nil) {
+	if err != nil {
 		panic("Something went awry")
 	}
 
@@ -41,7 +39,6 @@ func main() {
 	world.text = "world"
 	world.i = 0
 	world.max = 5
-
 
 	go outputText(hello)
 	go outputText(world)

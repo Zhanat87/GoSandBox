@@ -1,12 +1,9 @@
 package main
 
-import
-(
+import (
 	"github.com/nkozyra/hyphen/admin"
 	"log"
 )
-
-
 
 func main() {
 

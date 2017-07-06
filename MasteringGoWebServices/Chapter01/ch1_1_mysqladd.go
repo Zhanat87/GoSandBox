@@ -6,14 +6,14 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
-	"net/http"
 	"log"
+	"net/http"
 )
 
 var database *sql.DB
 
 type User struct {
-	ID int "json:id"
+	ID    int    "json:id"
 	Name  string "json:username"
 	Email string "json:email"
 	First string "json:first"
@@ -42,21 +42,21 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 }
 func GetUser(w http.ResponseWriter, r *http.Request) {
 
-	w.Header().Set("Pragma","no-cache")
+	w.Header().Set("Pragma", "no-cache")
 
-	urlParams 	:= mux.Vars(r)
-	id 			:= urlParams["id"]
+	urlParams := mux.Vars(r)
+	id := urlParams["id"]
 	ReadUser := User{}
-	err := database.QueryRow("select * from users where user_id=?",id).Scan(&ReadUser.ID, &ReadUser.Name, &ReadUser.First, &ReadUser.Last, &ReadUser.Email )
+	err := database.QueryRow("select * from users where user_id=?", id).Scan(&ReadUser.ID, &ReadUser.Name, &ReadUser.First, &ReadUser.Last, &ReadUser.Email)
 	switch {
-	    case err == sql.ErrNoRows:
-	            fmt.Fprintf(w,"No such user")
-	    case err != nil:
-	            log.Fatal(err)
-	    default:
-	    		output, _ := json.Marshal(ReadUser)       
-	    		fmt.Fprintf(w,string(output))
-	}	
+	case err == sql.ErrNoRows:
+		fmt.Fprintf(w, "No such user")
+	case err != nil:
+		log.Fatal(err)
+	default:
+		output, _ := json.Marshal(ReadUser)
+		fmt.Fprintf(w, string(output))
+	}
 }
 func main() {
 	db, err := sql.Open("mysql", "root@/social_network")
@@ -66,7 +66,7 @@ func main() {
 	database = db
 	routes := mux.NewRouter()
 	routes.HandleFunc("/api/user/create", CreateUser)
-	routes.HandleFunc("/api/user/read/{id:[0-9]+}",GetUser)
+	routes.HandleFunc("/api/user/read/{id:[0-9]+}", GetUser)
 	http.Handle("/", routes)
 	http.ListenAndServe(":8080", nil)
 }

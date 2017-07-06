@@ -10,9 +10,9 @@ func FanIn(ch1, ch2 <-chan int) chan int {
 	go func() {
 		for {
 			select {
-			case num := <- ch1:
+			case num := <-ch1:
 				out <- num
-			case num := <- ch2:
+			case num := <-ch2:
 				out <- num
 			}
 		}
@@ -27,11 +27,11 @@ func main() {
 	manhole := FanIn(ch1, ch2)
 	for {
 		select {
-			case num := <- manhole:
-				fmt.Println(num)
-			case <- time.After(time.Second * 2):
-				fmt.Println("timeout")
-				return
+		case num := <-manhole:
+			fmt.Println(num)
+		case <-time.After(time.Second * 2):
+			fmt.Println("timeout")
+			return
 		}
 	}
 }

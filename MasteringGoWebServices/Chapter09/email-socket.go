@@ -1,38 +1,36 @@
 package main
 
-import
-(
+import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"net"	
+	"net"
 )
 
-const
-(
+const (
 	port = ":9000"
 )
 
 type Message struct {
 	Title string `json:"title"`
-	Body string `json:"body"`
-	To string `json:"recipient"`
-	From string `json:"sender"`
+	Body  string `json:"body"`
+	To    string `json:"recipient"`
+	From  string `json:"sender"`
 }
 
 func (m Message) Send() {
 	mailServer := "mail.example.com"
 	mailServerQualified := mailServer + ":25"
 	mailAuth := smtp.PlainAuth(
-				"",
-				"[email]",
-				"[password]",
-				mailServer,
-			)
-	recip := mail.Address("Nathan Kozyra","nkozyra@gmail.com")
+		"",
+		"[email]",
+		"[password]",
+		mailServer,
+	)
+	recip := mail.Address("Nathan Kozyra", "nkozyra@gmail.com")
 	body := m.Body
 
-	mailHeaders := make(map[string] string)
+	mailHeaders := make(map[string]string)
 	mailHeaders["From"] = m.From
 	mailHeaders["To"] = recip.toString()
 	mailHeaders["Subject"] = m.Title
@@ -43,7 +41,7 @@ func (m Message) Send() {
 		fullEmailHeader += base64.StdEncoding.EncodeToString([]byte(body))
 	}
 
-	err := smtp.SendMail( mailServerQualified, mailAuth, m.From, m.To, []byte(fullEmailHeader))
+	err := smtp.SendMail(mailServerQualified, mailAuth, m.From, m.To, []byte(fullEmailHeader))
 	if err != nil {
 		fmt.Println("could not send email")
 		fmt.Println(err.Error())
@@ -57,7 +55,7 @@ func Listen() {
 		log.Fatal(err)
 	}
 
-	qC,err := qConn.Channel()
+	qC, err := qConn.Channel()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -67,30 +65,29 @@ func Listen() {
 		log.Fatal(err)
 	}
 
-	messages, err := qC.Consume( queue.Name, "", true, false, false, false, nil)
-
+	messages, err := qC.Consume(queue.Name, "", true, false, false, false, nil)
 
 	waitChan := make(chan int)
 
 	go func() {
 		for m := range messages {
 			var tmpM Message
-			json.Unmarshal(d.Body,tmpM)
-			fmt.Println(tmpM.Title,"message received")
+			json.Unmarshal(d.Body, tmpM)
+			fmt.Println(tmpM.Title, "message received")
 			tmpM.Send()
 		}
 
 	}()
 
-	<- waitChan
+	<-waitChan
 
 }
 
 func main() {
 
 	Listen()
-	
-	emailQueue,_ := net.Listen("tcp",port)
+
+	emailQueue, _ := net.Listen("tcp", port)
 	for {
 		conn, err := emailQueue.Accept()
 		if err != nil {
@@ -98,8 +95,8 @@ func main() {
 		}
 		var message []byte
 		var NewEmail Message
-		fmt.Fscan(conn,message)
-		json.Unmarshal(message,NewEmail)
+		fmt.Fscan(conn, message)
+		json.Unmarshal(message, NewEmail)
 		NewEmail.Send()
 	}
 

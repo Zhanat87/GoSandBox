@@ -3,11 +3,11 @@ package HydraConfigurator
 import (
 	"bufio"
 	"errors"
+	"fmt"
 	"os"
 	"reflect"
 	"strconv"
 	"strings"
-	"fmt"
 )
 
 type ConfigFields map[string]reflect.Value
@@ -52,11 +52,11 @@ func MarshalCustomConfig(v reflect.Value, filename string) error {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
-		fmt.Println("Processing line",line)
+		fmt.Println("Processing line", line)
 		args := strings.Split(line, "|")
 		name := args[0]
 		valuetype := strings.Split(args[1], ";")
-		name,value,vtype := strings.TrimSpace(name),strings.TrimSpace(valuetype[0]),strings.ToUpper(strings.TrimSpace(valuetype[1]))
+		name, value, vtype := strings.TrimSpace(name), strings.TrimSpace(valuetype[0]), strings.ToUpper(strings.TrimSpace(valuetype[1]))
 		fields.Add(name, value, vtype)
 	}
 

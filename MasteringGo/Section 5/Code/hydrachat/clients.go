@@ -11,7 +11,7 @@ type client struct {
 	wc chan string
 }
 
-func StartClient(msgCh chan <- string, cn net.Conn, quit chan struct{}) (chan <- string , <- chan struct{}){
+func StartClient(msgCh chan<- string, cn net.Conn, quit chan struct{}) (chan<- string, <-chan struct{}) {
 	c := new(client)
 	c.Reader = bufio.NewReader(cn)
 	c.Writer = bufio.NewWriter(cn)
@@ -32,12 +32,12 @@ func StartClient(msgCh chan <- string, cn net.Conn, quit chan struct{}) (chan <-
 	//setup the writer
 	c.writeMonitor()
 
-	go func(){
-		<- quit
+	go func() {
+		<-quit
 		cn.Close()
 	}()
 
-	return c.wc,done
+	return c.wc, done
 }
 
 func (c *client) writeMonitor() {

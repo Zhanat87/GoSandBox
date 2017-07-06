@@ -53,7 +53,7 @@ func (c *careTaker) Push(m Memento) {
 func (c *careTaker) Pop() Memento {
 	if len(c.mementoStack) > 0 {
 		memento := c.mementoStack[len(c.mementoStack)-1]
-		c.mementoStack = c.mementoStack[0:len(c.mementoStack)-1]
+		c.mementoStack = c.mementoStack[0 : len(c.mementoStack)-1]
 		return memento
 	}
 
@@ -89,7 +89,7 @@ func main() {
 	assertAndPrint(m.RestoreSettings())
 }
 
-func assertAndPrint(c Command){
+func assertAndPrint(c Command) {
 	switch cast := c.(type) {
 	case Volume:
 		fmt.Printf("Volume:\t%d\n", cast)

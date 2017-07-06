@@ -27,7 +27,7 @@ func HandleUpload(w http.ResponseWriter, r *http.Request) {
 	file, header, _ := r.FormFile("image")
 	image, _, _ := image.Decode(file)
 	images[header.Filename] = image
-	http.Redirect(w, r, "/image?name=" + header.Filename, 303)
+	http.Redirect(w, r, "/image?name="+header.Filename, 303)
 }
 
 func HandleImage(w http.ResponseWriter, r *http.Request) {

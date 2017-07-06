@@ -1,13 +1,13 @@
 package hydramessages
 
 import (
+	"Hydra/hydracomms/hydramessages/gob"
 	"Hydra/hydracomms/hydramessages/protobuff"
 	"Hydra/hydracomms/hydramessages/thrift"
 	"bufio"
 	"io/ioutil"
 	"log"
 	"net"
-	"Hydra/hydracomms/hydramessages/gob"
 )
 
 //Communication messages types
@@ -27,7 +27,7 @@ func EncodeAndSend(serType uint8, obj interface{}, destination string) (err erro
 		}
 		err = sendmessage(buffer, destination)
 	case GOB:
-		err = sendGobMessage(obj,destination)
+		err = sendGobMessage(obj, destination)
 	case THRIFT:
 		err = thriftmsgs.RunThriftClient(obj, destination)
 	}
@@ -46,15 +46,14 @@ func sendmessage(buffer []byte, destination string) error {
 	return err
 }
 
-func sendGobMessage(obj interface{}, destination string)error{
+func sendGobMessage(obj interface{}, destination string) error {
 	conn, err := net.Dial("tcp", destination)
 	if err != nil {
 		return err
 	}
 	defer conn.Close()
-	return hydragob.EncodeAndWriteGob(obj,conn)
+	return hydragob.EncodeAndWriteGob(obj, conn)
 }
-
 
 func ListenAndDecode(serType uint8, listenaddress string) chan interface{} {
 	out := make(chan interface{})

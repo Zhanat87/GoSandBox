@@ -7,7 +7,7 @@ import (
 )
 
 type mySqlDataStore struct {
-	 *sql.DB
+	*sql.DB
 }
 
 func NewMySQLDataStore(conn string) (*mySqlDataStore, error) {

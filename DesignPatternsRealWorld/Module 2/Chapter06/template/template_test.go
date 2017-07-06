@@ -1,8 +1,8 @@
 package template
 
 import (
-	"testing"
 	"strings"
+	"testing"
 )
 
 type TestStruct struct {
@@ -14,14 +14,14 @@ func (m *TestStruct) Message() string {
 }
 
 func TestTemplate_ExecuteAlgorithm(t *testing.T) {
-	t.Run("Using interfaces", func(t *testing.T){
+	t.Run("Using interfaces", func(t *testing.T) {
 		s := &TestStruct{}
 		res := s.ExecuteAlgorithm(s)
 
 		expectedOrError(res, " world ", t)
 	})
 
-	t.Run("Using anonymous functions", func(t *testing.T){
+	t.Run("Using anonymous functions", func(t *testing.T) {
 		m := new(AnonymousTemplate)
 		res := m.ExecuteAlgorithm(func() string {
 			return "world"
@@ -30,7 +30,7 @@ func TestTemplate_ExecuteAlgorithm(t *testing.T) {
 		expectedOrError(res, " world ", t)
 	})
 
-	t.Run("Using anonymous functions adapted to an interface", func(t *testing.T){
+	t.Run("Using anonymous functions adapted to an interface", func(t *testing.T) {
 		messageRetriever := MessageRetrieverAdapter(func() string {
 			return "world"
 		})
@@ -46,7 +46,7 @@ func TestTemplate_ExecuteAlgorithm(t *testing.T) {
 	})
 }
 
-func expectedOrError(res string, expected string, t *testing.T){
+func expectedOrError(res string, expected string, t *testing.T) {
 	if !strings.Contains(res, expected) {
 		t.Errorf("Expected string '%s' was not found on returned string\n", expected)
 	}

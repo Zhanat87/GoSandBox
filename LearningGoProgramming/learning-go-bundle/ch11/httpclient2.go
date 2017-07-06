@@ -5,8 +5,8 @@ import (
 	"io"
 	"net"
 	"net/http"
-	"time"
 	"os"
+	"time"
 )
 
 func main() {

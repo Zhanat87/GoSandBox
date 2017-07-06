@@ -1,6 +1,14 @@
 package main
 
+import "fmt"
+
 func main() {
+
+	something := true
+	if something {
+		fmt.Println("This is true")
+	}
+	
 	ten := 10
 	if ten == 20 {
 		println("This shouldn't be printed as 10 isn't equal to 20")

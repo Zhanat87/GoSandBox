@@ -43,4 +43,3 @@ func main() {
 
 	first.Next(command)
 }
-

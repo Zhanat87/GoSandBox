@@ -6,8 +6,8 @@ import (
 
 func routine(in <-chan int, out chan<- bool) {
 	for {
-		i, ok := <- in
-		if !ok  {
+		i, ok := <-in
+		if !ok {
 			break
 		}
 		sum := 0
@@ -29,5 +29,5 @@ func main() {
 		in <- i
 	}
 	close(in)
-	<- out
+	<-out
 }

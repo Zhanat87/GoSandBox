@@ -2,11 +2,10 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"math/rand"
+	"os"
 	"time"
 )
-
 
 type GameState interface {
 	executeState(*GameContext) bool
@@ -14,13 +13,14 @@ type GameState interface {
 
 type GameContext struct {
 	SecretNumber int
-	Retries int
-	Won bool
-	Next GameState
+	Retries      int
+	Won          bool
+	Next         GameState
 }
 
 type StartState struct{}
-func(s *StartState) executeState(c *GameContext) bool {
+
+func (s *StartState) executeState(c *GameContext) bool {
 	c.Next = &AskState{}
 
 	rand.Seed(time.Now().UnixNano())
@@ -32,7 +32,8 @@ func(s *StartState) executeState(c *GameContext) bool {
 }
 
 type FinishState struct{}
-func(f *FinishState) executeState(c *GameContext) bool {
+
+func (f *FinishState) executeState(c *GameContext) bool {
 	if c.Won {
 		println("Congrats, you won")
 	} else {
@@ -42,8 +43,9 @@ func(f *FinishState) executeState(c *GameContext) bool {
 	return false
 }
 
-type AskState struct {}
-func (a *AskState) executeState(c *GameContext) bool{
+type AskState struct{}
+
+func (a *AskState) executeState(c *GameContext) bool {
 	fmt.Printf("Introduce a number between 0 and 10, you have %d tries left\n", c.Retries)
 
 	var n int
@@ -65,8 +67,9 @@ func (a *AskState) executeState(c *GameContext) bool{
 func main() {
 	start := StartState{}
 	game := GameContext{
-		Next:&start,
+		Next: &start,
 	}
 
-	for game.Next.executeState(&game) {}
+	for game.Next.executeState(&game) {
+	}
 }

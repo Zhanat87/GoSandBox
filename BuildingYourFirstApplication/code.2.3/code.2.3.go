@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 var (
-	x int
+	x  int
 	px *int
 )
 

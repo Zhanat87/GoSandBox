@@ -5,13 +5,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/buger/jsonparser"
+	"github.com/hundredlee/wechat_pusher/enum"
 	"github.com/hundredlee/wechat_pusher/hlog"
+	"github.com/hundredlee/wechat_pusher/task"
 	"io/ioutil"
 	"net/http"
 	"strconv"
 	"time"
-	"github.com/hundredlee/wechat_pusher/task"
-	"github.com/hundredlee/wechat_pusher/enum"
 )
 
 var accessToken = AccessTokenInstance(false)
@@ -38,16 +38,15 @@ func (self *Push) SetBufferNum(bufferNum int) *Push {
 	return self
 }
 
-func (self *Push) SetTaskType (taskType string) *Push{
+func (self *Push) SetTaskType(taskType string) *Push {
 	self.TaskType = taskType
 	return self
 }
 
 func (self *Push) Add(schedule string) {
 
-
 	//if tasks len equal 0 || the first object is not right taskType panic
-	if len(self.Tasks) <= 0{
+	if len(self.Tasks) <= 0 {
 		panic("task is not allow empty")
 	}
 
@@ -55,17 +54,17 @@ func (self *Push) Add(schedule string) {
 		panic("Please SetRetries or SetBufferNum")
 	}
 
-	if self.TaskType == ""{
+	if self.TaskType == "" {
 		panic("Please Set TaskType")
 	}
 
 	firstTask := self.Tasks[0]
 	switch self.TaskType {
 	case enum.TASK_TYPE_TEMPLATE:
-		if _,ok := firstTask.(*task.TemplateTask); !ok {
+		if _, ok := firstTask.(*task.TemplateTask); !ok {
 			panic("not allow other TaskType struct in this TaskType")
 		}
-	//TODO other taskType
+		//TODO other taskType
 	}
 
 	getCronInstance().AddFunc(schedule, func() {
@@ -78,14 +77,14 @@ func (self *Push) Add(schedule string) {
 
 			resourceChannel <- true
 
-			go run(task,self.Retries,resourceChannel,self.TaskType)
+			go run(task, self.Retries, resourceChannel, self.TaskType)
 
 		}
 	})
 
 }
 
-func run(task task.Task,retries int,resourceChannel chan bool,taskType string) {
+func run(task task.Task, retries int, resourceChannel chan bool, taskType string) {
 	retr := 0
 
 	defer func() {
@@ -108,7 +107,7 @@ LABEL:
 			fileLog.LogError(fmt.Sprintf("TaskInfo : %v -- ErrorCode : %d -- TryTimeOut : %d", task, errCode, retr))
 		} else {
 
-			if errCode == 40001 || accessToken.Expired(){
+			if errCode == 40001 || accessToken.Expired() {
 				fileLog.LogError("AccessToken expired and refresh")
 				accessToken.Refresh()
 			}
@@ -117,8 +116,8 @@ LABEL:
 			retr++
 			goto LABEL
 		}
-	}else{
-		fileLog.LogInfo(fmt.Sprintf("%v -- push success",task))
+	} else {
+		fileLog.LogInfo(fmt.Sprintf("%v -- push success", task))
 	}
 
 	<-resourceChannel

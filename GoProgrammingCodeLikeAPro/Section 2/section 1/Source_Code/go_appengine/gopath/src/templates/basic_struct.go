@@ -11,7 +11,6 @@ type Basic_Struct struct {
 	Basic_field_one string
 }
 
-
 //func main() {
 //	//define an instance
 //	s := Basic_Struct{"value for a basic  field \n"}

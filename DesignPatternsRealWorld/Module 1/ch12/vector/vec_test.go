@@ -2,8 +2,8 @@ package vector
 
 import (
 	"math"
-	"testing"
 	"os"
+	"testing"
 )
 
 func TestNewVector(t *testing.T) {
@@ -87,12 +87,11 @@ func TestVectorScale(t *testing.T) {
 }
 
 func TestVectorMag(t *testing.T) {
-	cases := []struct{
-		vec SimpleVector
+	cases := []struct {
+		vec      SimpleVector
 		expected float64
-
 	}{
-    	{New(1.2, 3.4), math.Sqrt(1.2*1.2 + 3.4*3.4)},
+		{New(1.2, 3.4), math.Sqrt(1.2*1.2 + 3.4*3.4)},
 		{New(-0.21, 7.47), math.Sqrt(-0.21*-0.21 + 7.47*7.47)},
 		{New(1.43, -5.40), math.Sqrt(1.43*1.43 + -5.40*-5.40)},
 		{New(-2.07, -9.0), math.Sqrt(-2.07*-2.07 + -9.0*-9.0)},

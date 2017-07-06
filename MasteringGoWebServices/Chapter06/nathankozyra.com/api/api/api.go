@@ -205,16 +205,16 @@ func ApplicationAuthorize(w http.ResponseWriter, r *http.Request) {
 	}
 
 	expectedPassword := Password.GenerateHash(dbSalt, password)
-	fmt.Println("allow:",allow)
-	fmt.Println("authtype:",authType)	
-	fmt.Println(dbPassword,"=",expectedPassword)
+	fmt.Println("allow:", allow)
+	fmt.Println("authtype:", authType)
+	fmt.Println(dbPassword, "=", expectedPassword)
 	if (dbPassword == expectedPassword) && (allow == "1") && (authType == "consumer") {
 		fmt.Println("Yes!")
 		requestToken := Pseudoauth.GenerateToken()
 
 		authorizeSQL := "INSERT INTO api_tokens set application_user_id=?, user_id=?, api_token_key=?"
 
-		q, connectErr := Database.Exec(authorizeSQL,appUID,dbUID,requestToken)
+		q, connectErr := Database.Exec(authorizeSQL, appUID, dbUID, requestToken)
 		if connectErr != nil {
 			fmt.Println(connectErr.Error())
 		} else {
@@ -282,11 +282,11 @@ func StatusUpdate(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Coming soon to an API near you!")
 }
 
-func ValidateUserRequest(cKey string, cToken string) (string) {
+func ValidateUserRequest(cKey string, cToken string) string {
 	var UID string
 	var aUID string
 	var appUID string
-	Database.QueryRow("SELECT at.user_id,at.application_user_id,ac.user_id as appuser from api_tokens at left join api_credentials ac on ac.user_id=at.application_user_id where api_token_key=?",cToken).Scan(&UID,&aUID,&appUID)
+	Database.QueryRow("SELECT at.user_id,at.application_user_id,ac.user_id as appuser from api_tokens at left join api_credentials ac on ac.user_id=at.application_user_id where api_token_key=?", cToken).Scan(&UID, &aUID, &appUID)
 
 	return appUID
 }
@@ -299,13 +299,13 @@ func StatusCreate(w http.ResponseWriter, r *http.Request) {
 	Token := r.FormValue("token")
 	ConsumerKey := r.FormValue("consumer_key")
 
-	vUID := ValidateUserRequest(ConsumerKey,Token)
+	vUID := ValidateUserRequest(ConsumerKey, Token)
 	if vUID != UserID {
 		Response.Error = "Invalid user"
 		http.Error(w, Response.Error, 401)
 		//fmt.Println(w, SetFormat(Response))
-	} else  {
-		_,inErr := Database.Exec("INSERT INTO users_status set user_status_text=?, user_id=?", Status, UserID)
+	} else {
+		_, inErr := Database.Exec("INSERT INTO users_status set user_status_text=?, user_id=?", Status, UserID)
 		if inErr != nil {
 			fmt.Println(inErr.Error())
 			Response.Error = "Error creating status"
@@ -316,7 +316,6 @@ func StatusCreate(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintln(w, Response)
 		}
 	}
-
 
 }
 

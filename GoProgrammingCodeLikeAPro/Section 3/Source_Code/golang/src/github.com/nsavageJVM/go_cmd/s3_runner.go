@@ -2,24 +2,20 @@ package main
 
 import (
 	"fmt"
-	"gopkg.in/alecthomas/kingpin.v2"
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3"
+	"gopkg.in/alecthomas/kingpin.v2"
 	"io/ioutil"
-//	"os"
-
+	//	"os"
 )
 
-
 var (
-
-	s3filePath    = kingpin.Flag("s3file", "path to the file").String()
-	uploadFile      = kingpin.Command("upload", "Upload a file to S3")
-	downloadFile      = kingpin.Command("download", "Download a file to S3")
-	listS3      = kingpin.Command("list", "List S3 buckets")
-	createS3      = kingpin.Command("create", "Create S3 buckets")
-
+	s3filePath   = kingpin.Flag("s3file", "path to the file").String()
+	uploadFile   = kingpin.Command("upload", "Upload a file to S3")
+	downloadFile = kingpin.Command("download", "Download a file to S3")
+	listS3       = kingpin.Command("list", "List S3 buckets")
+	createS3     = kingpin.Command("create", "Create S3 buckets")
 )
 
 func main() {
@@ -30,7 +26,6 @@ func main() {
 	sess := session.New(&aws.Config{Region: aws.String("eu-west-1")})
 	s3client := s3.New(sess)
 
-
 	switch kingpin.Parse() {
 	// Upload
 	case uploadFile.FullCommand():
@@ -38,7 +33,6 @@ func main() {
 		dat, err := ioutil.ReadFile(*s3filePath)
 		check(err)
 		fmt.Print(string(dat))
-
 
 	// Download
 	case downloadFile.FullCommand():
@@ -58,7 +52,6 @@ func main() {
 
 	}
 
-
 }
 
 func check(err error) {
@@ -68,4 +61,3 @@ func check(err error) {
 	}
 
 }
-

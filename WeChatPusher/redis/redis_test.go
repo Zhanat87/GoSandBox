@@ -1,8 +1,8 @@
 package redis_test
 
 import (
-	"testing"
 	"github.com/hundredlee/wechat_pusher/redis"
+	"testing"
 )
 
 func TestNewRedis(t *testing.T) {

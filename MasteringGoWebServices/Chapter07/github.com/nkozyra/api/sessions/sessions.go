@@ -1,24 +1,22 @@
 package SessionManager
 
-import
-(
+import (
 	"encoding/json"
 	"errors"
-	"time"
 	"github.com/bradfitz/gomemcache/memcache"
-	"github.com/gorilla/sessions"	
-	Password "github.com/nkozyra/api/password"	
-
+	"github.com/gorilla/sessions"
+	Password "github.com/nkozyra/api/password"
+	"time"
 )
 
 var Session UserSession
 
 type UserSession struct {
-	ID              string `json:"id"`
+	ID              string            `json:"id"`
 	GorillaSesssion *sessions.Session `json:"session"`
-	SessionStore	*memcache.Client `json:"store"`
-	UID             int `json:"uid"`
-	Expire          time.Time `json:"expire"`
+	SessionStore    *memcache.Client  `json:"store"`
+	UID             int               `json:"uid"`
+	Expire          time.Time         `json:"expire"`
 }
 
 func (us *UserSession) Create() {
@@ -27,25 +25,25 @@ func (us *UserSession) Create() {
 }
 
 func (us *UserSession) GetSession(key string) (UserSession, error) {
-	session,err := us.SessionStore.Get(us.ID)
+	session, err := us.SessionStore.Get(us.ID)
 	if err != nil {
-		return UserSession{},errors.New("No such session")
+		return UserSession{}, errors.New("No such session")
 	} else {
 		var tempSession = UserSession{}
-		err := json.Unmarshal(session.Value,tempSession)
+		err := json.Unmarshal(session.Value, tempSession)
 		if err != nil {
 
 		}
-		return tempSession,nil
-	}	
+		return tempSession, nil
+	}
 }
 
 func (us *UserSession) SetSession() bool {
-	jsonValue,_ := json.Marshal(us)
+	jsonValue, _ := json.Marshal(us)
 	us.SessionStore.Set(&memcache.Item{Key: us.ID, Value: []byte(jsonValue)})
-	_,err := us.SessionStore.Get(us.ID)
+	_, err := us.SessionStore.Get(us.ID)
 	if err != nil {
-			return false
+		return false
 	} else {
 		return true
 	}

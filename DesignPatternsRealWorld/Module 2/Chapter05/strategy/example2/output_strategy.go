@@ -13,10 +13,10 @@ type DrawOutput struct {
 	LogWriter io.Writer
 }
 
-func(d *DrawOutput) SetLog(w io.Writer) {
+func (d *DrawOutput) SetLog(w io.Writer) {
 	d.LogWriter = w
 }
 
-func(d *DrawOutput) SetWriter(w io.Writer) {
+func (d *DrawOutput) SetWriter(w io.Writer) {
 	d.Writer = w
 }

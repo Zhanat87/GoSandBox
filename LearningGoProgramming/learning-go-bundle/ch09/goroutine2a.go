@@ -10,7 +10,6 @@ func main() {
 		count(60, 100, 10)
 	}()
 
-
 	fmt.Scanln() // wait for enter
 }
 

@@ -59,7 +59,7 @@ func runServer(address string) error {
 	defer l.Close()
 	for {
 		c, err := l.Accept()
-		if err!= nil {
+		if err != nil {
 			return err
 		}
 		go handleConnection(c)

@@ -24,7 +24,7 @@ func main() {
 	b1 = 5 < 10
 	fmt.Println(b1)
 
-	f2 := 3 * (5 + 2) + 2.0 / 15
+	f2 := 3*(5+2) + 2.0/15
 	fmt.Println(f2)
 
 	var s string

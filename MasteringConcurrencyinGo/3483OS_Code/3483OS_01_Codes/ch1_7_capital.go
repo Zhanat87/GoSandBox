@@ -1,10 +1,10 @@
 package main
 
-import(
+import (
 	"fmt"
-	"sync"
 	"runtime"
 	"strings"
+	"sync"
 )
 
 var initialString string
@@ -18,15 +18,13 @@ func addToFinalStack(letterChannel chan string, wg *sync.WaitGroup) {
 	wg.Done()
 }
 
-
 func capitalize(letterChannel chan string, currentLetter string, wg *sync.WaitGroup) {
 
 	thisLetter := strings.ToUpper(currentLetter)
 
 	wg.Done()
-	letterChannel <- thisLetter	
+	letterChannel <- thisLetter
 }
-
 
 func main() {
 
@@ -40,8 +38,6 @@ func main() {
 
 	stringLength = len(initialBytes)
 
-
-
 	for i := 0; i < stringLength; i++ {
 		wg.Add(2)
 
@@ -50,7 +46,6 @@ func main() {
 
 		wg.Wait()
 	}
-
 
 	fmt.Println(finalString)
 

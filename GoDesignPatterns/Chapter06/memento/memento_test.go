@@ -4,7 +4,7 @@ import "testing"
 
 func TestCareTaker_Add(t *testing.T) {
 	originator := originator{}
-	originator.state = State{Description:"Idle"}
+	originator.state = State{Description: "Idle"}
 
 	careTaker := careTaker{}
 
@@ -44,7 +44,7 @@ func TestCareTaker_Memento(t *testing.T) {
 }
 
 func TestOriginator_ExtractAndStoreState(t *testing.T) {
-	originator := originator{state:State{"Idle"}}
+	originator := originator{state: State{"Idle"}}
 	idleMemento := originator.NewMemento()
 
 	originator.state = State{"Working"}
