@@ -8,7 +8,7 @@ package main
  * @param  name the location of the image, relative to the url argument
  * @return      the image at the specified URL
  * @see         Image
- * @7/6/2017 6:18 PM
+ * @7/6/2017 6:20 PM
  */
 func main() {
 	
