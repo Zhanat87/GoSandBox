@@ -34,5 +34,21 @@ Gogland Tricks
 Ctrl + Mouse  = Types
 
 
+-----Working on it
+
+1.	Golang development environment (GoPath, Docker, Appengine)
+2.	Golang syntax and language structures(primitives, types, pointers, goroutines )
+3.	Golang toolchain (go build, cgo)
+4.	Golang package structure and dependencies (go mobile)
+5.	Golang web programming, rest api development, Appengine, AWS
+6.	Golang system level development
+●	static/dynamic linking
+●	language bindings (Java/Android, C, Python)
+7.	Golang applications
+●	command line
+●	desktop
+●	system
+
+
 
 
