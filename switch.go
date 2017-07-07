@@ -15,9 +15,9 @@ import (
 )
 
 func main() {
-	
+
 	switch time.Now().Weekday() {
-	case time.Sunday, time.Saturday	:
+	case time.Sunday, time.Saturday:
 		fmt.Println("This is weekends")
 	default:
 		fmt.Println("This is Weekdays")
