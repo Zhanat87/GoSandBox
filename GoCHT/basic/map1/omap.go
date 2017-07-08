@@ -6,6 +6,19 @@ import (
 	"reflect"
 )
 
+/**
+ * Orderd Map
+ *
+ * This is insanely way to make a custom type to help ourslef to make thing working again
+ *
+ *
+ * @param  url  an absolute URL giving the base location of the image
+ * @param  name the location of the image, relative to the url argument
+ * @return      the image at the specified URL
+ * @see         Image
+ * @08/07/2017 17:10
+ * Author : cyrsis@github
+ */
 // 有序的Map的接口型態。
 type OrderedMap interface {
 	GenericMap // 泛化的Map接口
