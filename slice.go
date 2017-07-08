@@ -15,4 +15,9 @@ import "fmt"
 func main() {
 	sliceString := []string{"a", "b", "b"}
 	fmt.Println(sliceString)
+
+	sliceVar := []string{"bb", "cc", "dd"}
+	fmt.Println(sliceVar)
+
+	fmt.Println(cap(sliceVar))
 }

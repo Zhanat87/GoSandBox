@@ -13,8 +13,10 @@ import "fmt"
  */
 func main() {
 
-
+	varMap := map[string]bool{"SomeKeys": true, "True": false}
+	fmt.Println(varMap)
 	maps := make(map[string]int)
+
 	maps["key1"] = 7
 	maps["key2"] = 13
 	fmt.Println(maps)
