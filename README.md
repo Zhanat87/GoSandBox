@@ -49,6 +49,30 @@ Ctrl + Mouse  = Types
 ●	desktop
 ●	system
 
+## About Import Package
 
+-- If run into conflict
+import {
+ la "LoggerX"
+ lb "LoggerXY"
+}
 
+Calling it would la.LoggerX
 
+-- if want to import as init
+import {
+ _ "logging"
+}
+
+## Go Standard CLI
+go build
+go clean
+go env
+go fix
+go get
+go install
+go list
+go run
+go test
+go tool
+go version

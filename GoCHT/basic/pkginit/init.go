@@ -1,9 +1,20 @@
 package main // 指令原始程式檔案必須在這裡宣告自己屬於main包
 
+/**
+ *
+ *
+ * @param  url  an absolute URL giving the base location of the image
+ * @param  name the location of the image, relative to the url argument
+ * @return      the image at the specified URL
+ * @see         Image
+ * @08/07/2017 14:29
+ * Author : cyrsis@github 
+ */
 import ( // 引入了程式碼包fmt和runtime
 	"fmt"
 	"runtime"
 )
+
 
 func init() { // 包起始化函數
 	fmt.Printf("Map: %v\n", m) // 先格式化再列印

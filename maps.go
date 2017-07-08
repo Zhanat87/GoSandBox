@@ -12,6 +12,8 @@ import "fmt"
  * @7/7/2017 1:07 PM
  */
 func main() {
+
+
 	maps := make(map[string]int)
 	maps["key1"] = 7
 	maps["key2"] = 13
