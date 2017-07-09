@@ -79,3 +79,13 @@ go version
 
 For Future reference can find in here
 https://github.com/hyper0x/go_command_tutorial/blob/master/SUMMARY.md
+
+List of Web Tools and Framework I would use
+1. beego(Build HTTP with) https://github.com/astaxie/beego
+2. Gogs (Git for yourself)
+3. Docker
+4. Skynet(Do not forget Terminator) https://github.com/skynetservices
+5. NSQ (1 Billions Message per day)https://github.com/nsqio/nsq
+6. etcd (Raft)https://github.com/coreos/etcd
+7. Groupcache Intent to replace memached in many cases
+8. Gobot Do lot of things that I want to do https://gobot.io/ 
